@@ -202,17 +202,18 @@
     </section>
   </main>
 
-  <!-- ========== SCRIPTS ========== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       /* ========== MAP-DROPDOWN LOGIC ========== */
       const mapSelect = document.getElementById('mapSelect');
       const mapSections = document.querySelectorAll('.map');
-
+  
+      // Hide all maps initially
       mapSections.forEach(map => {
         map.style.display = 'none';
       });
-
+  
+      // Show selected map
       mapSelect.addEventListener('change', () => {
         mapSections.forEach(map => {
           map.style.display = 'none';
@@ -222,20 +223,78 @@
           document.getElementById(selectedMap).style.display = 'block';
         }
       });
-
+  
+      /* ========== ROOM SELECTION LOGIC FOR SPA ========== */
+      const spaRoomSelect = document.getElementById('spaRoomSelect');
+      const spaRooms = document.querySelectorAll('#spaMap .room');
+  
+      spaRooms.forEach(room => room.style.display = 'none'); // Hide all initially
+  
+      spaRoomSelect.addEventListener('change', () => {
+        spaRooms.forEach(room => room.style.display = 'none'); // Hide all first
+        const selectedRoom = spaRoomSelect.value;
+        if (selectedRoom) {
+          document.getElementById(selectedRoom).style.display = 'block';
+        }
+      });
+  
+      /* ========== ROOM SELECTION LOGIC FOR APARTMENT ========== */
+      const apartmentRoomSelect = document.getElementById('apartmentRoomSelect');
+      const apartmentRooms = document.querySelectorAll('#apartmentMap .room');
+  
+      apartmentRooms.forEach(room => room.style.display = 'none'); // Hide all initially
+  
+      apartmentRoomSelect.addEventListener('change', () => {
+        apartmentRooms.forEach(room => room.style.display = 'none'); // Hide all first
+        const selectedRoom = apartmentRoomSelect.value;
+        if (selectedRoom) {
+          document.getElementById(selectedRoom).style.display = 'block';
+        }
+      });
+  
       /* ========== CLEAR ALL BUTTONS ========== */
       document.getElementById('clearAllSpa').addEventListener('click', () => {
         document.querySelectorAll('#spaMap input[type="checkbox"]').forEach(checkbox => {
           checkbox.checked = false;
+          localStorage.removeItem(checkbox.name);
         });
       });
-
+  
       document.getElementById('clearAllApartment').addEventListener('click', () => {
         document.querySelectorAll('#apartmentMap input[type="checkbox"]').forEach(checkbox => {
           checkbox.checked = false;
+          localStorage.removeItem(checkbox.name);
         });
       });
+  
+      /* ========== LOCAL STORAGE FOR CHECKBOXES ========== */
+      function restoreCheckboxState(container) {
+        container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+          const savedState = localStorage.getItem(checkbox.name);
+          if (savedState === 'checked') {
+            checkbox.checked = true;
+          }
+        });
+      }
+  
+      function saveCheckboxState(container) {
+        container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+          checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+              localStorage.setItem(checkbox.name, 'checked');
+            } else {
+              localStorage.removeItem(checkbox.name);
+            }
+          });
+        });
+      }
+  
+      restoreCheckboxState(document.getElementById('spaMap'));
+      saveCheckboxState(document.getElementById('spaMap'));
+  
+      restoreCheckboxState(document.getElementById('apartmentMap'));
+      saveCheckboxState(document.getElementById('apartmentMap'));
     });
-  </script>
+  </script>  
 </body>
 </html>
