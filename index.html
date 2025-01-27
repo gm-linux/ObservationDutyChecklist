@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Multi-Map Anomaly Checklist</title>
   <style>
-    /* ========== Basic Reset & Body Style ========== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,8 +13,6 @@
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: #fafafa;
     }
-
-    /* ========== Header ========== */
     header {
       background: #333;
       color: #fff;
@@ -23,37 +20,19 @@
       padding: 1.5rem 1rem;
       margin-bottom: 1rem;
     }
-    header h1 {
-      margin-bottom: 0.5rem;
-      font-size: 1.75rem;
-    }
-    header p {
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-
-    /* ========== Main Container for Everything ========== */
     main {
       max-width: 900px;
       margin: 0 auto;
       padding: 0 1rem 2rem;
     }
-
-    /* ========== Map Selector Area ========== */
-    .map-select-container {
+    .map-select-container, .top-controls {
       text-align: center;
       margin-bottom: 1.5rem;
-    }
-    .map-select-container label {
-      font-weight: 600;
-      margin-right: 0.5rem;
     }
     select {
       font-size: 1rem;
       padding: 0.25rem 0.5rem;
     }
-
-    /* ========== Each Map's Container ========== */
     .map {
       display: none;
       background-color: #fff;
@@ -62,22 +41,16 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       margin-bottom: 2rem;
     }
-
-    /* ========== "IN DEV" Placeholder ========== */
-    .dev-placeholder {
-      font-size: 1.2rem;
-      color: #777;
-      text-align: center;
-      padding: 2rem;
+    .room {
+      display: none;
+      background-color: #fefefe;
+      padding: 1rem;
+      border-radius: 6px;
+      border: 1px solid #eee;
     }
-
-    /* ========== Map Styles ========== */
-    .top-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+    ul {
+      list-style-type: none;
+      padding-left: 0;
     }
     .btn {
       background: #007bff;
@@ -87,70 +60,23 @@
       padding: 0.5rem 0.75rem;
       cursor: pointer;
       font-size: 1rem;
-      transition: background 0.3s ease;
-    }
-    .btn:hover {
-      background: #0056c1;
-    }
-
-    .room {
-      display: none;
-      background-color: #fefefe;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      border-radius: 6px;
-      border: 1px solid #eee;
-    }
-    .room h2 {
-      margin-top: 0;
-      margin-bottom: 0.75rem;
-      font-size: 1.2rem;
-      color: #444;
-    }
-
-    /* ========== Lists & Labels ========== */
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    li {
-      margin-bottom: 0.75rem;
-    }
-    label {
-      cursor: pointer;
-    }
-    label:hover {
-      text-decoration: underline;
-    }
-    input[type="checkbox"] {
-      margin-right: 0.5rem;
     }
   </style>
 </head>
 <body>
-  <!-- ========== HEADER ========== -->
   <header>
     <h1>Multi-Map Anomaly Checklist</h1>
     <p>Select a map, then choose a room to track anomalies.</p>
   </header>
-
-  <!-- ========== MAIN CONTENT ========== -->
   <main>
-    <!-- MAP SELECTOR -->
     <div class="map-select-container">
       <label for="mapSelect">Choose a Map:</label>
       <select id="mapSelect">
         <option value="">-- Select a Map --</option>
         <option value="spaMap">SPA</option>
         <option value="apartmentMap">APARTMENT BUILDING</option>
-        <option value="logCabinMap">LOG CABIN (IN DEV)</option>
-        <option value="gasStationMap">GAS STATION (IN DEV)</option>
-        <option value="museumMap">MUSEUM (IN DEV)</option>
-        <option value="factoryMap">FACTORY (IN DEV)</option>
       </select>
     </div>
-
-    <!-- ========== MAP: SPA ========== -->
     <section class="map" id="spaMap">
       <div class="top-controls">
         <label for="spaRoomSelect">Choose a Room:</label>
@@ -158,16 +84,25 @@
           <option value="">-- Select a Room --</option>
           <option value="lobby">Lobby</option>
           <option value="dressingRoom">Dressing Room</option>
-          <option value="mainPool">Main Pool</option>
-          <option value="coldPool">Cold Pool</option>
-          <option value="waterslide">Waterslide</option>
-          <option value="sauna">Sauna</option>
         </select>
         <button class="btn" id="clearAllSpa">Clear All</button>
       </div>
+      <div class="room" id="lobby">
+        <h2>Lobby</h2>
+        <ul>
+          <li><input type="checkbox"> Camera Malfunction</li>
+          <li><input type="checkbox"> Abyss - Audio cue</li>
+          <li><input type="checkbox"> Missing Object - Plant</li>
+        </ul>
+      </div>
+      <div class="room" id="dressingRoom">
+        <h2>Dressing Room</h2>
+        <ul>
+          <li><input type="checkbox"> Camera Malfunction</li>
+          <li><input type="checkbox"> Severed Head</li>
+        </ul>
+      </div>
     </section>
-
-    <!-- ========== MAP: APARTMENT BUILDING ========== -->
     <section class="map" id="apartmentMap">
       <div class="top-controls">
         <label for="apartmentRoomSelect">Choose a Room:</label>
@@ -175,126 +110,44 @@
           <option value="">-- Select a Room --</option>
           <option value="entrance">Entrance</option>
           <option value="stairway">Stairway</option>
-          <option value="clubRoom">Club Room</option>
-          <option value="basement">Basement</option>
-          <option value="storage">Storage</option>
-          <option value="garage">Garage</option>
         </select>
         <button class="btn" id="clearAllApartment">Clear All</button>
       </div>
-    </section>
-
-    <!-- ========== OTHER MAPS (IN DEV) ========== -->
-    <section class="map" id="logCabinMap">
-      <div class="dev-placeholder">LOG CABIN - IN DEV</div>
-    </section>
-
-    <section class="map" id="gasStationMap">
-      <div class="dev-placeholder">GAS STATION - IN DEV</div>
-    </section>
-
-    <section class="map" id="museumMap">
-      <div class="dev-placeholder">MUSEUM - IN DEV</div>
-    </section>
-
-    <section class="map" id="factoryMap">
-      <div class="dev-placeholder">FACTORY - IN DEV</div>
+      <div class="room" id="entrance">
+        <h2>Entrance</h2>
+        <ul>
+          <li><input type="checkbox"> Camera Malfunction</li>
+          <li><input type="checkbox"> Abyss - Audio cue</li>
+        </ul>
+      </div>
+      <div class="room" id="stairway">
+        <h2>Stairway</h2>
+        <ul>
+          <li><input type="checkbox"> Camera Malfunction</li>
+          <li><input type="checkbox"> Blood - Bloody footprints</li>
+        </ul>
+      </div>
     </section>
   </main>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      /* ========== MAP-DROPDOWN LOGIC ========== */
       const mapSelect = document.getElementById('mapSelect');
-      const mapSections = document.querySelectorAll('.map');
-  
-      // Hide all maps initially
-      mapSections.forEach(map => {
-        map.style.display = 'none';
-      });
-  
-      // Show selected map
+      const maps = document.querySelectorAll('.map');
+      const roomSelects = document.querySelectorAll('select[id$="RoomSelect"]');
+      maps.forEach(map => map.style.display = 'none');
       mapSelect.addEventListener('change', () => {
-        mapSections.forEach(map => {
-          map.style.display = 'none';
-        });
-        const selectedMap = mapSelect.value;
-        if (selectedMap) {
-          document.getElementById(selectedMap).style.display = 'block';
-        }
+        maps.forEach(map => map.style.display = 'none');
+        document.getElementById(mapSelect.value).style.display = 'block';
       });
-  
-      /* ========== ROOM SELECTION LOGIC FOR SPA ========== */
-      const spaRoomSelect = document.getElementById('spaRoomSelect');
-      const spaRooms = document.querySelectorAll('#spaMap .room');
-  
-      spaRooms.forEach(room => room.style.display = 'none'); // Hide all initially
-  
-      spaRoomSelect.addEventListener('change', () => {
-        spaRooms.forEach(room => room.style.display = 'none'); // Hide all first
-        const selectedRoom = spaRoomSelect.value;
-        if (selectedRoom) {
-          document.getElementById(selectedRoom).style.display = 'block';
-        }
-      });
-  
-      /* ========== ROOM SELECTION LOGIC FOR APARTMENT ========== */
-      const apartmentRoomSelect = document.getElementById('apartmentRoomSelect');
-      const apartmentRooms = document.querySelectorAll('#apartmentMap .room');
-  
-      apartmentRooms.forEach(room => room.style.display = 'none'); // Hide all initially
-  
-      apartmentRoomSelect.addEventListener('change', () => {
-        apartmentRooms.forEach(room => room.style.display = 'none'); // Hide all first
-        const selectedRoom = apartmentRoomSelect.value;
-        if (selectedRoom) {
-          document.getElementById(selectedRoom).style.display = 'block';
-        }
-      });
-  
-      /* ========== CLEAR ALL BUTTONS ========== */
-      document.getElementById('clearAllSpa').addEventListener('click', () => {
-        document.querySelectorAll('#spaMap input[type="checkbox"]').forEach(checkbox => {
-          checkbox.checked = false;
-          localStorage.removeItem(checkbox.name);
-        });
-      });
-  
-      document.getElementById('clearAllApartment').addEventListener('click', () => {
-        document.querySelectorAll('#apartmentMap input[type="checkbox"]').forEach(checkbox => {
-          checkbox.checked = false;
-          localStorage.removeItem(checkbox.name);
-        });
-      });
-  
-      /* ========== LOCAL STORAGE FOR CHECKBOXES ========== */
-      function restoreCheckboxState(container) {
-        container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-          const savedState = localStorage.getItem(checkbox.name);
-          if (savedState === 'checked') {
-            checkbox.checked = true;
+      roomSelects.forEach(select => {
+        select.addEventListener('change', () => {
+          document.querySelectorAll('.room').forEach(room => room.style.display = 'none');
+          if (select.value) {
+            document.getElementById(select.value).style.display = 'block';
           }
         });
-      }
-  
-      function saveCheckboxState(container) {
-        container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-          checkbox.addEventListener('change', () => {
-            if (checkbox.checked) {
-              localStorage.setItem(checkbox.name, 'checked');
-            } else {
-              localStorage.removeItem(checkbox.name);
-            }
-          });
-        });
-      }
-  
-      restoreCheckboxState(document.getElementById('spaMap'));
-      saveCheckboxState(document.getElementById('spaMap'));
-  
-      restoreCheckboxState(document.getElementById('apartmentMap'));
-      saveCheckboxState(document.getElementById('apartmentMap'));
+      });
     });
-  </script>  
+  </script>
 </body>
 </html>
