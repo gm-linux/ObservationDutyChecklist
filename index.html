@@ -71,8 +71,8 @@
       padding: 2rem;
     }
 
-    /* ========== SPA Container Styles ========== */
-    .spa-top-controls {
+    /* ========== Map Styles ========== */
+    .top-controls {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -131,7 +131,7 @@
   <!-- ========== HEADER ========== -->
   <header>
     <h1>Multi-Map Anomaly Checklist</h1>
-    <p>Select a map (like <strong>SPA</strong>), then check anomalies. Other maps are in development.</p>
+    <p>Select a map, then choose a room to track anomalies.</p>
   </header>
 
   <!-- ========== MAIN CONTENT ========== -->
@@ -143,18 +143,18 @@
         <option value="">-- Select a Map --</option>
         <option value="spaMap">SPA</option>
         <option value="apartmentMap">APARTMENT BUILDING</option>
-        <option value="logCabinMap">LOG CABIN</option>
-        <option value="gasStationMap">GAS STATION</option>
-        <option value="museumMap">MUSEUM</option>
-        <option value="factoryMap">FACTORY</option>
+        <option value="logCabinMap">LOG CABIN (IN DEV)</option>
+        <option value="gasStationMap">GAS STATION (IN DEV)</option>
+        <option value="museumMap">MUSEUM (IN DEV)</option>
+        <option value="factoryMap">FACTORY (IN DEV)</option>
       </select>
     </div>
 
     <!-- ========== MAP: SPA ========== -->
     <section class="map" id="spaMap">
-      <div class="spa-top-controls">
-        <label for="roomSelect">Choose a Room:</label>
-        <select id="roomSelect">
+      <div class="top-controls">
+        <label for="spaRoomSelect">Choose a Room:</label>
+        <select id="spaRoomSelect">
           <option value="">-- Select a Room --</option>
           <option value="lobby">Lobby</option>
           <option value="dressingRoom">Dressing Room</option>
@@ -163,37 +163,28 @@
           <option value="waterslide">Waterslide</option>
           <option value="sauna">Sauna</option>
         </select>
-        <button class="btn" id="clearAllBtn">Clear All</button>
+        <button class="btn" id="clearAllSpa">Clear All</button>
       </div>
+    </section>
 
-      <!-- SPA ROOMS -->
-      <section class="room" id="lobby">
-        <h2>Lobby</h2>
-        <ul>
-          <li><input type="checkbox"> Camera Malfunction</li>
-          <li><input type="checkbox"> Abyss - Audio cue</li>
-          <li><input type="checkbox"> Rift - Audio cue</li>
-          <li><input type="checkbox"> Missing Object - Plant</li>
-          <li><input type="checkbox"> Missing Object - Lamp</li>
-          <li><input type="checkbox"> Missing Object - Phone</li>
-        </ul>
-      </section>
-
-      <section class="room" id="dressingRoom">
-        <h2>Dressing Room</h2>
-        <ul>
-          <li><input type="checkbox"> Camera Malfunction</li>
-          <li><input type="checkbox"> Severed Head - Teleports</li>
-          <li><input type="checkbox"> Extra Object - Bottle appears</li>
-        </ul>
-      </section>
+    <!-- ========== MAP: APARTMENT BUILDING ========== -->
+    <section class="map" id="apartmentMap">
+      <div class="top-controls">
+        <label for="apartmentRoomSelect">Choose a Room:</label>
+        <select id="apartmentRoomSelect">
+          <option value="">-- Select a Room --</option>
+          <option value="entrance">Entrance</option>
+          <option value="stairway">Stairway</option>
+          <option value="clubRoom">Club Room</option>
+          <option value="basement">Basement</option>
+          <option value="storage">Storage</option>
+          <option value="garage">Garage</option>
+        </select>
+        <button class="btn" id="clearAllApartment">Clear All</button>
+      </div>
     </section>
 
     <!-- ========== OTHER MAPS (IN DEV) ========== -->
-    <section class="map" id="apartmentMap">
-      <div class="dev-placeholder">APARTMENT BUILDING - IN DEV</div>
-    </section>
-
     <section class="map" id="logCabinMap">
       <div class="dev-placeholder">LOG CABIN - IN DEV</div>
     </section>
@@ -210,5 +201,41 @@
       <div class="dev-placeholder">FACTORY - IN DEV</div>
     </section>
   </main>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      /* ========== MAP-DROPDOWN LOGIC ========== */
+      const mapSelect = document.getElementById('mapSelect');
+      const mapSections = document.querySelectorAll('.map');
+
+      mapSections.forEach(map => {
+        map.style.display = 'none';
+      });
+
+      mapSelect.addEventListener('change', () => {
+        mapSections.forEach(map => {
+          map.style.display = 'none';
+        });
+        const selectedMap = mapSelect.value;
+        if (selectedMap) {
+          document.getElementById(selectedMap).style.display = 'block';
+        }
+      });
+
+      /* ========== CLEAR ALL BUTTONS ========== */
+      document.getElementById('clearAllSpa').addEventListener('click', () => {
+        document.querySelectorAll('#spaMap input[type="checkbox"]').forEach(checkbox => {
+          checkbox.checked = false;
+        });
+      });
+
+      document.getElementById('clearAllApartment').addEventListener('click', () => {
+        document.querySelectorAll('#apartmentMap input[type="checkbox"]').forEach(checkbox => {
+          checkbox.checked = false;
+        });
+      });
+    });
+  </script>
 </body>
 </html>
