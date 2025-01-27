@@ -1,3 +1,4 @@
+/* Basic reset */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -10,20 +11,34 @@ header {
   margin-bottom: 2rem;
 }
 
-h1 {
-  margin: 0.5rem 0;
+/* Dropdown styling */
+.room-selector {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+#roomSelect {
+  font-size: 1rem;
+  padding: 0.25rem;
 }
 
+/* Container for the rooms */
+#roomsContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Hide all room sections by default;
+   We'll show the active one via JS */
 .room {
+  display: none;
   background-color: #fff;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 8px;
 }
 
 .room h2 {
   margin-top: 0;
-  margin-bottom: 0.75rem;
 }
 
 ul {
@@ -38,8 +53,6 @@ li {
 label {
   cursor: pointer;
 }
-
-/* Optionally add some hover or transition effects */
 label:hover {
   text-decoration: underline;
 }
