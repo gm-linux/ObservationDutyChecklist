@@ -1,56 +1,486 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My Checklist Website</title>
-  <!-- Link to your CSS file -->
+  <title>Anomaly Checklist</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>My Checklist</h1>
+    <h1>Anomaly Checklist</h1>
+    <p>Select each anomaly you’ve detected in each room.</p>
   </header>
 
-  <!-- Category 1 -->
-  <section class="category">
-    <h2>Personal Tasks</h2>
+  <!-- LOBBY -->
+  <section class="room">
+    <h2>Lobby</h2>
     <ul>
       <li>
         <label>
-          <input type="checkbox" name="task1" />
-          Buy groceries
+          <input type="checkbox" name="lobby_footprints" />
+          Footprints - footprints appear on left side of desk
         </label>
       </li>
       <li>
         <label>
-          <input type="checkbox" name="task2" />
-          Finish reading the book
+          <input type="checkbox" name="lobby_missing_object_phone_receiver" />
+          Missing Object - receiver for the phone is gone
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="lobby_object_movement_pen" />
+          Object Movement - pen moves to other side of paper
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="lobby_extra_object_ashtray" />
+          Extra Object - ashtray on front desk
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="lobby_door_anomaly_doorknob" />
+          Door Anomaly - doorknob on middle door changes sides
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="lobby_intruder_concierge" />
+          Intruder - concierge (WAIT TO REPORT, count growths)
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="lobby_object_replacement_men_to_women" />
+          Object Replacement - men's door sign changes to women
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="lobby_object_replacement_women_to_men" />
+          Object Replacement - women's door sign changes to men
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="lobby_missing_object_lamp" />
+          Missing Object - lamp on desk disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="lobby_object_manipulation_surface" />
+          Object Manipulation - surface of desk changes to white
         </label>
       </li>
     </ul>
   </section>
 
-  <!-- Category 2 -->
-  <section class="category">
-    <h2>Work Tasks</h2>
+  <!-- DRESSING ROOM -->
+  <section class="room">
+    <h2>Dressing Room</h2>
     <ul>
       <li>
         <label>
-          <input type="checkbox" name="task3" />
-          Reply to emails
+          <input type="checkbox" name="dressing_room_lights_camera_flash" />
+          Lights - camera on bench will flash periodically
         </label>
       </li>
       <li>
         <label>
-          <input type="checkbox" name="task4" />
-          Prepare presentation slides
+          <input type="checkbox" name="dressing_room_missing_object_yellow_towel_locker_door" />
+          Missing Object - yellow towel on locker door disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_object_movement_record_player" />
+          Object Movement - record player starts playing
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_severed_head_in_locker" />
+          Severed Head - appears in a locker (right-click to report)
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_intruder_siren" />
+          Intruder - siren, “I can fix her”
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_missing_object_yellow_towel_gold_rack" />
+          Missing Object - yellow towel on left-most gold rack disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_room_manipulation_extra_lockers" />
+          Room Manipulation - an extra row of lockers appears in the back
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_missing_object_potted_plant_showers" />
+          Missing Object - potted plant next to showers in back disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_missing_object_potted_plant_sinks" />
+          Missing Object - potted plant next to sinks in back disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_object_movement_shaving_cream" />
+          Object Movement - shaving cream moves to another sink
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_door_anomaly_locker_door_closes" />
+          Door Anomaly - locker door with yellow towel closes slightly
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_missing_object_sprite_bottle" />
+          Missing Object - sprite bottle on back right side disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_extra_object_bottle_on_bench" />
+          Extra Object - bottle on bench (right side of first row of lockers)
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_extra_object_bottle_on_white_towel" />
+          Extra Object - bottle appears on top of white towel near pink towel locker
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_image_anomaly_magazine_lips" />
+          Image Anomaly - lips on the magazine cover change
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="dressing_room_object_movement_pink_towel_locker_door" />
+          Object Movement - locker door with pink towel opens
         </label>
       </li>
     </ul>
   </section>
 
-  <!-- Link to your JavaScript file (optional if you want interactivity) -->
+  <!-- MAIN POOL -->
+  <section class="room">
+    <h2>Main Pool</h2>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_lights_upper_left_out" />
+          Lights - upper left light goes out
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_lights_lower_left_out" />
+          Lights - lower left light goes out
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_extra_object_sunken_pool" />
+          Extra Object - sunken object in the pool
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_object_movement_water_orb" />
+          Object Movement - water gravitates out of the pool into floating orb
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_missing_object_left_curly_thing" />
+          Missing Object - one of the curly things on left side missing
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_dead_body_floating" />
+          Dead Body - floating in the pool
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_extra_object_right_curly_thing" />
+          Extra Object - extra curly thing on the right side of pool
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_intruder_nixie_underwater" />
+          Intruder - nixie, underwater
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_extra_object_pipes_peninsula" />
+          Extra Object - some pipe things appear on the peninsula
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_missing_object_pipe_left_side" />
+          Missing Object - pipe thing on the left side disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_abnormal_wind" />
+          Abnormal Wind - getting windy in here
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_object_replacement_lounge_chairs" />
+          Object Replacement - lounge chairs become arm chairs
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_image_anomaly_magazine_cover" />
+          Image Anomaly - magazine cover changes
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="main_pool_object_manipulation_stairs_switch_sides" />
+          Object Manipulation - stairs to the pool switch to right side
+        </label>
+      </li>
+    </ul>
+  </section>
+
+  <!-- COLD POOL -->
+  <section class="room">
+    <h2>Cold Pool</h2>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox" name="cold_pool_missing_object_railings" />
+          Missing Object - the railings disappear
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="cold_pool_object_movement_spherical_chair_eyeball" />
+          Object Movement - spherical chair partially closes, giant eyeball
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="cold_pool_object_replacement_plants_to_palm_trees" />
+          Object Replacement - back two plants turn into palm trees
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="cold_pool_extra_object_sunken_pool_drone" />
+          Extra Object - sunken object in pool (drone?)
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="cold_pool_missing_object_filter_grate" />
+          Missing Object - filter grate on right side of pool disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="cold_pool_extra_object_necklace_tied_railing" />
+          Extra Object - necklace tied to the left railing
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="cold_pool_intruder_bug_eyed" />
+          Intruder - bug-eyed thing on the left
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="cold_pool_missing_object_books_upper_right" />
+          Missing Object - books on table in upper right disappear
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="cold_pool_frozen_water_hazy" />
+          Frozen Water - water turns hazy
+        </label>
+      </li>
+    </ul>
+  </section>
+
+  <!-- WATERSLIDE -->
+  <section class="room">
+    <h2>Waterslide</h2>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_object_movement_pool_draining" />
+          Object Movement - pool starts draining
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_extra_object_sunken_pool_box" />
+          Extra Object - sunken object in pool (box)
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_object_manipulation_slide_blue_to_green" />
+          Object Manipulation - slide changes from blue to green
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_object_movement_slide_wriggling" />
+          Object Movement - slide begins wriggling
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_object_movement_ladder_switches_side" />
+          Object Movement - ladder switches to other side of pool
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_intruder_maggot" />
+          Intruder - maggot (needs double report!)
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_missing_object_plant_next_to_right_doorway" />
+          Missing Object - plant next to right doorway disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_lights_from_the_hole" />
+          Lights - light appears from the hole
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_extra_object_red_cup_near_left_plant" />
+          Extra Object - red cup appears next to plant on left side
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_extra_object_new_ladder_left_side" />
+          Extra Object - new ladder appears on left side of pool
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="waterslide_missing_object_plant_left_pillar" />
+          Missing Object - plant next to the left pillar disappears
+        </label>
+      </li>
+    </ul>
+  </section>
+
+  <!-- SAUNA -->
+  <section class="room">
+    <h2>Sauna</h2>
+    <ul>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_image_anomaly_mural_right_changes" />
+          Image Anomaly - mural on right side changes
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_image_anomaly_mural_left_mirrored" />
+          Image Anomaly - mural on left side is mirrored
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_missing_object_bar_middle_wall" />
+          Missing Object - bar on wall in middle disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_object_movement_flip_flops" />
+          Object Movement - flip-flops turn the opposite direction
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_missing_object_lower_light_under_railing" />
+          Missing Object - lower light under railing disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_missing_object_lower_light_corner" />
+          Missing Object - lower light on corner disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_missing_object_lower_light_right_mural" />
+          Missing Object - lower light under mural on right disappears
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_steam_cannot_see" />
+          Steam - cannot see anything
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_intruder_naked_man" />
+          Intruder - naked man (after clearing steam anomaly)
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_extra_object_orange_thing_under_railing" />
+          Extra Object - orange thing appears below the railing on left
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="sauna_lights_room_turns_red" />
+          Lights - room turns red
+        </label>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Optional JS to save checkbox states -->
+  <!-- Remove or comment out if you don't need persistence -->
   <script src="script.js"></script>
 </body>
 </html>

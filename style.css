@@ -1,37 +1,45 @@
-/* style.css */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 1rem;
-    background-color: #f9f9f9;
-  }
-  
-  header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .category {
-    background-color: #ffffff;
-    margin: 1rem 0;
-    padding: 1rem;
-    border-radius: 8px;
-  }
-  
-  .category h2 {
-    margin-top: 0;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  li {
-    margin-bottom: 0.5rem;
-  }
-  
-  label {
-    cursor: pointer;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 1rem;
+  background-color: #f4f4f4;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  margin: 0.5rem 0;
+}
+
+.room {
+  background-color: #fff;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.room h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+label {
+  cursor: pointer;
+}
+
+/* Optionally add some hover or transition effects */
+label:hover {
+  text-decoration: underline;
+}
