@@ -2,79 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Anomaly Checklist (Single-File Version)</title>
+  <title>Anomaly Checklist with Clear All</title>
   <style>
-    /* ======= Inline CSS ======= */
-    body {
-      font-family: Arial, sans-serif;
+    /* ========= Basic Reset & Fonts ========= */
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 1rem;
-      background-color: #f4f4f4;
+      padding: 0;
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fafafa;
     }
 
+    /* ========= Header Styles ========= */
     header {
+      background: #333;
+      color: #fff;
       text-align: center;
+      padding: 1.5rem 1rem;
       margin-bottom: 1rem;
     }
-
-    .room-selector {
-      text-align: center;
-      margin-bottom: 1.5rem;
+    header h1 {
+      margin-bottom: 0.5rem;
+      font-size: 1.75rem;
     }
-
-    .room-selector label {
-      font-weight: bold;
-      margin-right: 0.5rem;
-    }
-
-    select {
+    header p {
       font-size: 1rem;
-      padding: 0.25rem;
+      opacity: 0.9;
     }
 
-    /* Container for the rooms (not strictly necessary, but nice for structure) */
+    /* ========= Main Container ========= */
     main {
       max-width: 900px;
       margin: 0 auto;
+      padding: 0 1rem 2rem;
     }
 
-    /* By default, rooms are hidden.
-       We show the selected room in JavaScript. */
+    /* ========= Room Selector & Clear Button ========= */
+    .top-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    label[for="roomSelect"] {
+      font-weight: 600;
+    }
+    select {
+      font-size: 1rem;
+      padding: 0.25rem 0.5rem;
+    }
+    .btn {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #0056c1;
+    }
+
+    /* ========= Room Sections ========= */
     .room {
-      display: none;
+      display: none; /* Hidden by default; shown via JS */
       background-color: #fff;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       padding: 1rem;
       border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
     .room h2 {
       margin-top: 0;
       margin-bottom: 0.75rem;
+      font-size: 1.3rem;
+      color: #444;
     }
 
+    /* ========= Lists & Labels ========= */
     ul {
       list-style-type: none;
       padding-left: 0;
+      margin-top: 0.5rem;
     }
-
     li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
     }
-
     label {
       cursor: pointer;
+      line-height: 1.4;
     }
-
     label:hover {
       text-decoration: underline;
     }
-
-    /* Just to visually separate rooms (optional) */
-    .room:not(:last-child) {
-      border-bottom: 2px solid #eee;
-      padding-bottom: 2rem;
-      margin-bottom: 2rem;
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
     }
   </style>
 </head>
@@ -82,26 +109,28 @@
   <!-- HEADER -->
   <header>
     <h1>Anomaly Checklist</h1>
-    <p>Select a room from the dropdown and check off the anomalies you find.</p>
+    <p>Select a room and check off anomalies you encounter. Click "Clear All" to reset.</p>
   </header>
 
-  <!-- DROPDOWN SELECTOR -->
-  <div class="room-selector">
-    <label for="roomSelect">Choose a Room:</label>
-    <select id="roomSelect">
-      <option value="">-- Select a Room --</option>
-      <option value="lobby">Lobby</option>
-      <option value="dressingRoom">Dressing Room</option>
-      <option value="mainPool">Main Pool</option>
-      <option value="coldPool">Cold Pool</option>
-      <option value="waterslide">Waterslide</option>
-      <option value="sauna">Sauna</option>
-    </select>
-  </div>
-
-  <!-- ALL ROOMS (HIDDEN BY DEFAULT, SHOWN VIA JS) -->
+  <!-- MAIN CONTENT -->
   <main>
-    <!-- ====== LOBBY ====== -->
+    <!-- TOP CONTROLS: Dropdown + Clear All -->
+    <div class="top-controls">
+      <label for="roomSelect">Choose a Room:</label>
+      <select id="roomSelect">
+        <option value="">-- Select a Room --</option>
+        <option value="lobby">Lobby</option>
+        <option value="dressingRoom">Dressing Room</option>
+        <option value="mainPool">Main Pool</option>
+        <option value="coldPool">Cold Pool</option>
+        <option value="waterslide">Waterslide</option>
+        <option value="sauna">Sauna</option>
+      </select>
+
+      <button class="btn" id="clearAllBtn">Clear All</button>
+    </div>
+
+    <!-- ========== LOBBY ========== -->
     <section class="room" id="lobby">
       <h2>Lobby</h2>
       <ul>
@@ -168,7 +197,7 @@
       </ul>
     </section>
 
-    <!-- ====== DRESSING ROOM ====== -->
+    <!-- ========== DRESSING ROOM ========== -->
     <section class="room" id="dressingRoom">
       <h2>Dressing Room</h2>
       <ul>
@@ -271,7 +300,7 @@
       </ul>
     </section>
 
-    <!-- ====== MAIN POOL ====== -->
+    <!-- ========== MAIN POOL ========== -->
     <section class="room" id="mainPool">
       <h2>Main Pool</h2>
       <ul>
@@ -362,7 +391,7 @@
       </ul>
     </section>
 
-    <!-- ====== COLD POOL ====== -->
+    <!-- ========== COLD POOL ========== -->
     <section class="room" id="coldPool">
       <h2>Cold Pool</h2>
       <ul>
@@ -423,7 +452,7 @@
       </ul>
     </section>
 
-    <!-- ====== WATERSLIDE ====== -->
+    <!-- ========== WATERSLIDE ========== -->
     <section class="room" id="waterslide">
       <h2>Waterslide</h2>
       <ul>
@@ -496,7 +525,7 @@
       </ul>
     </section>
 
-    <!-- ====== SAUNA ====== -->
+    <!-- ========== SAUNA ========== -->
     <section class="room" id="sauna">
       <h2>Sauna</h2>
       <ul>
@@ -570,40 +599,36 @@
     </section>
   </main>
 
-  <!-- Inline JavaScript to handle dropdown + checkbox persistence -->
+  <!-- ========= SCRIPT: Dropdown Logic + LocalStorage + Clear All ========= -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Dropdown element
       const roomSelect = document.getElementById('roomSelect');
-      // All room sections
       const rooms = document.querySelectorAll('.room');
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const clearAllBtn = document.getElementById('clearAllBtn');
 
-      // Hide all rooms (CSS also does this, but let's enforce here)
+      // Hide all rooms initially (enforced by CSS, but let's do it programmatically too)
       rooms.forEach(room => {
         room.style.display = 'none';
       });
 
-      // When user changes the dropdown selection
+      // ========== ROOM SELECTOR BEHAVIOR ==========
       roomSelect.addEventListener('change', () => {
-        // Hide all rooms
+        // Hide all sections
         rooms.forEach(room => {
           room.style.display = 'none';
         });
-
-        // If a valid room was selected, show the matching section
-        const selectedRoom = roomSelect.value; 
+        // Show the chosen section, if any
+        const selectedRoom = roomSelect.value;
         if (selectedRoom) {
-          const roomSection = document.getElementById(selectedRoom);
-          if (roomSection) {
-            roomSection.style.display = 'block';
+          const target = document.getElementById(selectedRoom);
+          if (target) {
+            target.style.display = 'block';
           }
         }
       });
 
-      // --- OPTIONAL: Persist checkbox states in localStorage ---
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-      // 1) On page load, restore saved states
+      // ========== LOAD CHECKED STATES FROM LOCALSTORAGE ==========
       checkboxes.forEach(checkbox => {
         const savedState = localStorage.getItem(checkbox.name);
         if (savedState === 'checked') {
@@ -611,7 +636,7 @@
         }
       });
 
-      // 2) Whenever a box changes, update localStorage
+      // ========== SAVE CHECKED STATES ON CHANGE ==========
       checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
           if (checkbox.checked) {
@@ -619,6 +644,14 @@
           } else {
             localStorage.removeItem(checkbox.name);
           }
+        });
+      });
+
+      // ========== CLEAR ALL BUTTON ==========
+      clearAllBtn.addEventListener('click', () => {
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = false;
+          localStorage.removeItem(checkbox.name);
         });
       });
     });
