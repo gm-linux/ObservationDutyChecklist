@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Multi-Map Anomaly Checklist</title>
+  <title>Observation Duty 7 Anomalies Tracker</title>
   <style>
     * {
       box-sizing: border-box;
@@ -79,13 +79,19 @@
       color: red;
       font-weight: bold; /* Optional: Makes the text bold for better visibility */
     }
+    #bmc-container {
+      position: fixed;
+      bottom: 20px;
+     left: 20px;
+      z-index: 1000; /* Ensures it stays on top */
+    }
 
   </style>
 </head>
 <body>
   <header>
-    <h1>Multi-Map Anomaly Checklist</h1>
-    <p>Select a map, then choose a room to track anomalies.</p>
+    <h1>Observation Duty 7 Anomalies Tracker</h1>
+    <p>Select a map, then choose a room to track anomalies. Made by Jordan Rodriguez</p>
   </header>
   <main>
     <div class="map-select-container">
@@ -361,6 +367,21 @@
       </div>
     </section>
   </main>
+
+  <div id="bmc-container">
+    <script type="text/javascript" 
+      src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+      data-name="bmc-button" 
+      data-slug="jrodriguez" 
+      data-color="#FFDD00" 
+      data-emoji=""  
+      data-font="Cookie" 
+      data-text="Buy me a footlong sub" 
+      data-outline-color="#000000" 
+      data-font-color="#000000" 
+      data-coffee-color="#ffffff">
+    </script>
+  </div>
   <script>
 document.addEventListener('DOMContentLoaded', () => {
   const mapSelect = document.getElementById('mapSelect');
