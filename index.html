@@ -2,28 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track anomalies in Observation Duty 7 with this comprehensive checklist.">
+  <meta name="keywords" content="Observation Duty 7, anomalies, tracker, checklist">
+  <meta name="author" content="Jordan Rodriguez">
   <title>Observation Duty 7 Anomalies Tracker</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: 'Roboto', sans-serif;
     }
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #fafafa;
+      background-color: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
     }
     header {
-      background: #333;
+      background: linear-gradient(135deg, #007bff, #00d4ff);
       color: #fff;
       text-align: center;
-      padding: 1.5rem 1rem;
-      margin-bottom: 1rem;
+      padding: 2rem 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    nav {
+      background: #007bff;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    nav a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #00d4ff;
     }
     main {
       max-width: 900px;
       margin: 0 auto;
       padding: 0 1rem 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+    main:hover {
+      transform: scale(1.02);
     }
     .map-select-container, .top-controls {
       text-align: center;
@@ -31,15 +64,27 @@
     }
     select {
       font-size: 1rem;
-      padding: 0.25rem 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+    select:focus {
+      border-color: #007bff;
     }
     .map {
       display: none;
       background-color: #fff;
       padding: 1rem;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       margin-bottom: 2rem;
+      transition: transform 0.3s ease-in-out, opacity 0.3s;
+      opacity: 0;
+    }
+    .map.show {
+      transform: scale(1.05);
+      opacity: 1;
     }
     .room {
       display: none;
@@ -47,6 +92,12 @@
       padding: 1rem;
       border-radius: 6px;
       border: 1px solid #eee;
+      transition: transform 0.3s ease-in-out, opacity 0.3s;
+      opacity: 0;
+    }
+    .room.show {
+      transform: scale(1.05);
+      opacity: 1;
     }
     ul {
       list-style-type: none;
@@ -60,35 +111,291 @@
       padding: 0.5rem 0.75rem;
       cursor: pointer;
       font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background: #0056b3;
     }
     li {
       display: flex;
       align-items: center;
       cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    li:hover {
+      background-color: #f0f2f5;
+    }
+    .dark-mode li:hover {
+      background-color: #333;
     }
     li input[type="checkbox"] {
       margin-right: 0.5rem;
       cursor: pointer;
     }
     input[type="checkbox"] {
-      transform: scale(1.5); /* Makes the checkbox 1.5x bigger */
-      margin-right: 0.5rem; /* Adds some spacing between checkbox and text */
-     cursor: pointer;
+      transform: scale(1.5);
+      margin-right: 0.5rem;
+      cursor: pointer;
     }
     input[type="checkbox"]:checked + span {
       color: red;
-      font-weight: bold; /* Optional: Makes the text bold for better visibility */
+      font-weight: bold;
     }
     #bmc-container {
       position: fixed;
       bottom: 20px;
-     left: 20px;
-      z-index: 1000; /* Ensures it stays on top */
+      left: 20px;
+      z-index: 1000;
     }
-
+    .dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    .dark-mode header {
+      background: #1e1e1e;
+    }
+    .dark-mode main {
+      background-color: #1e1e1e;
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    }
+    .dark-mode .map {
+      background-color: #1e1e1e;
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    }
+    .dark-mode .room {
+      background-color: #2c2c2c;
+      border: 1px solid #444;
+    }
+    .dark-mode .btn {
+      background: #444;
+      color: #e0e0e0;
+    }
+    .dark-mode input[type="checkbox"] {
+      accent-color: #ff5722;
+    }
+    .dark-mode input[type="checkbox"]:checked + span {
+      color: #ff5722;
+    }
+    .dark-mode #bmc-container {
+      background-color: #333;
+    }
+    .dark-mode nav {
+      background: #1e1e1e;
+    }
+    .dark-mode nav a {
+      color: #e0e0e0;
+    }
+    .dark-mode nav a:hover {
+      color: #ff5722;
+    }
+    .dark-mode select {
+      background-color: #2c2c2c;
+      color: #e0e0e0;
+      border: 1px solid #444;
+    }
+    .dark-mode select:focus {
+      border-color: #ff5722;
+    }
+    .dark-mode .search-input {
+      background-color: #2c2c2c;
+      color: #e0e0e0;
+      border: 1px solid #444;
+    }
+    .dark-mode .search-input:focus {
+      border-color: #ff5722;
+    }
+    .dark-mode footer {
+      background: #1e1e1e;
+    }
+    .dark-mode .reset-room-btn {
+      background: #c82333;
+      color: #e0e0e0;
+    }
+    .dark-mode .reset-room-btn:hover {
+      background: #a71d2a;
+    }
+    .dark-mode .back-to-top {
+      background: #444;
+      color: #e0e0e0;
+    }
+    .dark-mode .back-to-top:hover {
+      background: #333;
+    }
+    .dark-mode .loading-spinner {
+      border-top: 16px solid #ff5722;
+    }
+    .dark-mode .tooltip .tooltiptext {
+      background-color: #444;
+      color: #e0e0e0;
+    }
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      font-size: 1rem;
+      z-index: 1001;
+      transition: background-color 0.3s;
+    }
+    .dark-mode-toggle:hover {
+      background: #0056b3;
+    }
+    .search-container {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .search-input {
+      font-size: 1rem;
+      padding: 0.5rem;
+      width: 80%;
+      max-width: 400px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+    .search-input:focus {
+      border-color: #007bff;
+    }
+    .progress-container {
+      display: none; /* Hide the progress container */
+    }
+    .progress-bar {
+      display: none; /* Hide the progress bar */
+    }
+    .progress-bar-fill {
+      display: none; /* Hide the progress bar fill */
+    }
+    .reset-room-btn {
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.25rem 0.5rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      margin-left: 0.5rem;
+      transition: background-color 0.3s;
+    }
+    .reset-room-btn:hover {
+      background: #c82333;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    }
+    @media (max-width: 600px) {
+      .search-input {
+        width: 100%;
+      }
+      .progress-bar {
+        width: 100%;
+      }
+    }
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%; /* Position the tooltip above the text */
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      display: none;
+      z-index: 1001;
+      transition: background-color 0.3s;
+    }
+    .back-to-top:hover {
+      background: #0056b3;
+    }
+    .loading-spinner {
+      border: 16px solid #f3f3f3;
+      border-top: 16px solid #007bff;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      animation: spin 2s linear infinite;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1002;
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .dark-mode .tooltip .tooltiptext {
+      background-color: #444;
+      color: #e0e0e0;
+    }
+    /* Custom scrollbar styles */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f0f2f5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #007bff;
+      border-radius: 10px;
+      border: 3px solid #f0f2f5;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #0056b3;
+    }
+    .dark-mode ::-webkit-scrollbar-track {
+      background: #121212;
+    }
+    .dark-mode ::-webkit-scrollbar-thumb {
+      background-color: #444;
+      border: 3px solid #121212;
+    }
+    .dark-mode ::-webkit-scrollbar-thumb:hover {
+      background-color: #666;
+    }
   </style>
 </head>
 <body>
+  <div class="loading-spinner" id="loadingSpinner"></div>
+  <button class="dark-mode-toggle" id="darkModeToggle">Toggle Dark Mode</button>
   <header>
     <h1>Observation Duty 7 Anomalies Tracker</h1>
     <p>Select a map, then choose a room to track anomalies</p>
@@ -97,20 +404,20 @@
   <main>
     <div class="map-select-container">
       <label for="mapSelect">Choose a Map:</label>
-      <select id="mapSelect">
+      <select id="mapSelect" aria-label="Choose a Map">
         <option value="">-- Select a Map --</option>
         <option value="spaMap">SPA</option>
         <option value="apartmentMap">APARTMENT BUILDING</option>
         <option value="logCabinMap">LOG CABIN</option>
-        <option value="gasStation">!!IN DEV!! GAS STATION</option>
+        <option value="gasStation">GAS STATION</option>
         <option value="museum">!!IN DEV!! MUSEUM</option>
         <option value="factory">!!IN DEV!! FACTORY</option>
       </select>
     </div>
-    <section class="map" id="spaMap">
+    <section class="map" id="spaMap" role="region" aria-labelledby="spaMapLabel">
       <div class="top-controls">
         <label for="spaRoomSelect">Choose a Room:</label>
-        <select id="spaRoomSelect">
+        <select id="spaRoomSelect" aria-label="Choose a Room">
           <option value="">-- Select a Room --</option>
           <option value="lobby">Lobby</option>
           <option value="dressingRoom">Dressing Room</option>
@@ -120,132 +427,141 @@
           <option value="sauna">Sauna</option>
         </select>
         <button class="btn" id="clearAllSpa">Clear All</button>
+        <div class="search-container">
+          <input type="text" class="search-input" id="spaSearch" placeholder="Search anomalies..." aria-label="Search anomalies">
+        </div>
       </div>
       <div class="room" id="lobby">
-        <h2>Lobby</h2>
+        <h2 id="spaMapLabel">Lobby</h2>
+        <button class="reset-room-btn" onclick="resetRoom('lobby')">Reset Room</button>
         <ul>
-          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox"> Rift - Camera zooms and distorts / Audio cue</li>
-          <li><input type="checkbox"> Missing Object - Plant disappears from right corner</li>
-          <li><input type="checkbox"> Missing Object - Lamp disappears from desk</li>
-          <li><input type="checkbox"> Missing Object - Phone disappears from hook</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Door Anomaly - Door handle appears on left side of door</li>
           <li><input type="checkbox"> Extra Object - Ash tray appears on desk</li>
           <li><input type="checkbox"> Footprints - Footprints leading to door on left</li>
-          <li><input type="checkbox"> Object Movement - Pen appears on left side of paper</li>
-          <li><input type="checkbox"> Object Replacement - Women's symbol on left side</li>
-          <li><input type="checkbox"> Object Replacement - Men's symbol on right side</li>
-          <li><input type="checkbox"> Object Replacement - Wood tabletop replaced with marble</li>
-          <li><input type="checkbox"> Door Anomaly - Door handle appears on left side of door</li>
           <li><input type="checkbox"> Intruder - 1-4 growths appear on intruder's body, count them before reporting.</li>
+          <li><input type="checkbox"> Missing Object - Lamp disappears from desk</li>
+          <li><input type="checkbox"> Missing Object - Phone disappears from hook</li>
+          <li><input type="checkbox"> Missing Object - Plant disappears from right corner</li>
+          <li><input type="checkbox"> Object Movement - Pen appears on left side of paper</li>
+          <li><input type="checkbox"> Object Replacement - Men's symbol on right side</li>
+          <li><input type="checkbox"> Object Replacement - Women's symbol on left side</li>
+          <li><input type="checkbox"> Object Replacement - Wood tabletop replaced with marble</li>
+          <li><input type="checkbox"> Rift - Camera zooms and distorts / Audio cue</li>
         </ul>
       </div>
       <div class="room" id="dressingRoom">
         <h2>Dressing Room</h2>
+        <button class="reset-room-btn" onclick="resetRoom('dressingRoom')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Door Anomaly - Door colors invert</li>
           <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly</li>
-          <li><input type="checkbox"> Severed Head - Head will teleport if you try to click-and-hold</li>
-          <li><input type="checkbox"> Missing Object - Green towel disappears from hook</li>
-          <li><input type="checkbox"> Missing Object - Plant closest to the door disappears</li>
-          <li><input type="checkbox"> Missing Object - Plant closest to the sink disappears</li>
-          <li><input type="checkbox"> Missing Object - Plant closest to lockers disappears</li>
-          <li><input type="checkbox"> Extra Object - Bottle appears on right side of second row bench</li>
-          <li><input type="checkbox"> Extra Object - Bottle appears right side of first row bench</li>
           <li><input type="checkbox"> Extra Object - Bottle appears left side of second row bench; on top of a book</li>
           <li><input type="checkbox"> Extra Object - Bottle appears on far left bench</li>
-          <li><input type="checkbox"> Object Movement - Shaving cream appears on right mirror</li>
-          <li><input type="checkbox"> Door Anomaly - Door colors invert</li>
+          <li><input type="checkbox"> Extra Object - Bottle appears on right side of second row bench</li>
+          <li><input type="checkbox"> Extra Object - Bottle appears right side of first row bench</li>
           <li><input type="checkbox"> Image Anomaly - Girl on magazine no longer has lipstick</li>
-          <li><input type="checkbox"> Room Manipulation - Room appears longer</li>
-          <li><input type="checkbox"> Object Manipulation - Handle on gramophone moves / Audio cue</li>
-          <li><input type="checkbox"> Light - Camera flashes</li>
           <li><input type="checkbox"> Intruder [Siren] - Siren appears peeking from behind first row of lockers</li>
+          <li><input type="checkbox"> Light - Camera flashes</li>
+          <li><input type="checkbox"> Missing Object - Green towel disappears from hook</li>
+          <li><input type="checkbox"> Missing Object - Plant closest to lockers disappears</li>
+          <li><input type="checkbox"> Missing Object - Plant closest to the door disappears</li>
+          <li><input type="checkbox"> Missing Object - Plant closest to the sink disappears</li>
+          <li><input type="checkbox"> Object Manipulation - Handle on gramophone moves / Audio cue</li>
+          <li><input type="checkbox"> Object Movement - Shaving cream appears on right mirror</li>
+          <li><input type="checkbox"> Room Manipulation - Room appears longer</li>
+          <li><input type="checkbox"> Severed Head - Head will teleport if you try to click-and-hold</li>
         </ul>
       </div>
       <div class="room" id="mainPool">
-        <h2>Dressing Room</h2>
+        <h2>Main Pool</h2>
+        <button class="reset-room-btn" onclick="resetRoom('mainPool')">Reset Room</button>
         <ul>
-          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly.</li>
           <li><input type="checkbox"> Abnormal Wind - You'll see the plants moving / Audio cue</li>
-          <li><input type="checkbox"> Missing Object - C-shaped object on the left disappears</li>
-          <li><input type="checkbox"> Missing Object - Spout on the left disappears</li>
-          <li><input type="checkbox"> Missing Object - Ladder on lower right side disappears</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Dead Body - Body floating in the water</li>
+          <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly.</li>
+          <li><input type="checkbox"> Extra Object - C-shaped object appears on the right</li>
           <li><input type="checkbox"> Extra Object - Object appears under the water</li>
           <li><input type="checkbox"> Extra Object - Two spouts appear in the middle of the pool</li>
-          <li><input type="checkbox"> Extra Object - C-shaped object appears on the right</li>
-          <li><input type="checkbox"> Object Replacement - Chairs change shape</li>
           <li><input type="checkbox"> Image Anomaly - Magazine cover is lighter and more colorful</li>
-          <li><input type="checkbox"> Object Movement - Stairs appear on the right side of the pool</li>
+          <li><input type="checkbox"> Intruder [Nixie] - Report ASAP / Failing to report will result in a Game Over</li>
           <li><input type="checkbox"> Light - Left light turns off</li>
           <li><input type="checkbox"> Light - Right light turns off</li>
-          <li><input type="checkbox"> Dead Body - Body floating in the water</li>
+          <li><input type="checkbox"> Missing Object - C-shaped object on the left disappears</li>
+          <li><input type="checkbox"> Missing Object - Ladder on lower right side disappears</li>
+          <li><input type="checkbox"> Missing Object - Spout on the left disappears</li>
           <li><input type="checkbox"> Object Manipulation - All water is floating above the pool in a spherical shape</li>
-          <li><input type="checkbox"> Intruder [Nixie] - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Object Movement - Stairs appear on the right side of the pool</li>
+          <li><input type="checkbox"> Object Replacement - Chairs change shape</li>
         </ul>
       </div>
       <div class="room" id="coldPool">
         <h2>Cold Pool</h2>
+        <button class="reset-room-btn" onclick="resetRoom('coldPool')">Reset Room</button>
         <ul>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly</li>
-          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox"> Missing Object - Vent on the right side disappears</li>
-          <li><input type="checkbox"> Missing Object - Vent on the left side disappears</li>
+          <li><input type="checkbox"> Extra Object - Locket appears on left railing</li>
+          <li><input type="checkbox"> Extra Object - Object appears under the water</li>
+          <li><input type="checkbox"> Frozen Water - Pool is frozen over</li>
+          <li><input type="checkbox"> Intruder - Snail guy appears on left side</li>
           <li><input type="checkbox"> Missing Object - Books disappear from table</li>
           <li><input type="checkbox"> Missing Object - Railings disappear from all stairs</li>
-          <li><input type="checkbox"> Extra Object - Object appears under the water</li>
-          <li><input type="checkbox"> Extra Object - Locket appears on left railing</li>
-          <li><input type="checkbox"> Object Replacement - Plants become tall</li>
-          <li><input type="checkbox"> Frozen Water - Pool is frozen over</li>
+          <li><input type="checkbox"> Missing Object - Vent on the left side disappears</li>
+          <li><input type="checkbox"> Missing Object - Vent on the right side disappears</li>
           <li><input type="checkbox"> Object Manipulation - Chair pod is closed</li>
-          <li><input type="checkbox"> Intruder - Snail guy appears on left side</li>
+          <li><input type="checkbox"> Object Replacement - Plants become tall</li>
         </ul>
       </div>
       <div class="room" id="waterSlide">
         <h2>Water Slide</h2>
+        <button class="reset-room-btn" onclick="resetRoom('waterSlide')">Reset Room</button>
         <ul>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly.</li>
-          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox"> Missing Object - Plant on left disappears</li>
-          <li><input type="checkbox"> Missing Object - Plant on right disappears</li>
           <li><input type="checkbox"> Extra Object - Cup appears by plant in bottom left corner</li>
           <li><input type="checkbox"> Extra Object - Object appears under the water</li>
           <li><input type="checkbox"> Extra Object - Second ladder appears on left side of pool</li>
-          <li><input type="checkbox"> Object Movement - Ladder moves to left side of pool</li>
-          <li><input type="checkbox"> Light - Light appears from hole</li>
-          <li><input type="checkbox"> Object Replacement - Slide is a darker color</li>
-          <li><input type="checkbox"> Object Manipulation - Slide starts wiggling</li>
-          <li><input type="checkbox"> Object Manipulation - Water drains from pool</li>
           <li><input type="checkbox"> Intruder [Maggot] - Giant worm starts sliding out of waterslide</li>
           <li><input type="checkbox"> Intruder (Failed Report) - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Light - Light appears from hole</li>
+          <li><input type="checkbox"> Missing Object - Plant on left disappears</li>
+          <li><input type="checkbox"> Missing Object - Plant on right disappears</li>
+          <li><input type="checkbox"> Object Manipulation - Slide starts wiggling</li>
+          <li><input type="checkbox"> Object Manipulation - Water drains from pool</li>
+          <li><input type="checkbox"> Object Movement - Ladder moves to left side of pool</li>
+          <li><input type="checkbox"> Object Replacement - Slide is a darker color</li>
         </ul>
       </div>
       <div class="room" id="sauna">
         <h2>Sauna</h2>
+        <button class="reset-room-btn" onclick="resetRoom('sauna')">Reset Room</button>
         <ul>
-          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox"> Lights - Lights turn red</li>
-          <li><input type="checkbox"> Steam / Smoke / Fog - Steam fills the sauna</li>
-          <li><input type="checkbox"> Missing Object - Metal disk on left disappears</li>
-          <li><input type="checkbox"> Missing Object - Metal disk in center disappears</li>
-          <li><input type="checkbox"> Missing Object - Metal Disk on right disappears</li>
-          <li><input type="checkbox"> Missing Object - Hand rail on wall disappears</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Extra Object - Red object appears behind rail</li>
-          <li><input type="checkbox"> Object Movement - Sandals face away from hole</li>
-          <li><input type="checkbox"> Image Anomaly - Painting flips horizontally</li>
           <li><input type="checkbox"> Image Anomaly - Face appears in painting</li>
+          <li><input type="checkbox"> Image Anomaly - Painting flips horizontally</li>
           <li><input type="checkbox"> Intruder - Gentleman enjoyin the sauna</li>
+          <li><input type="checkbox"> Lights - Lights turn red</li>
+          <li><input type="checkbox"> Missing Object - Hand rail on wall disappears</li>
+          <li><input type="checkbox"> Missing Object - Metal Disk on right disappears</li>
+          <li><input type="checkbox"> Missing Object - Metal disk in center disappears</li>
+          <li><input type="checkbox"> Missing Object - Metal disk on left disappears</li>
+          <li><input type="checkbox"> Object Movement - Sandals face away from hole</li>
+          <li><input type="checkbox"> Steam / Smoke / Fog - Steam fills the sauna</li>
         </ul>
       </div>
     </section>
-    <section class="map" id="apartmentMap">
+    <section class="map" id="apartmentMap" role="region" aria-labelledby="apartmentMapLabel">
       <div class="top-controls">
         <label for="apartmentRoomSelect">Choose a Room:</label>
-        <select id="apartmentRoomSelect">
+        <select id="apartmentRoomSelect" aria-label="Choose a Room">
           <option value="">-- Select a Room --</option>
           <option value="entrance">Entrance</option>
           <option value="stairway">Stairway</option>
@@ -255,121 +571,131 @@
           <option value="garage">Garage</option>
         </select>
         <button class="btn" id="clearAllapartment">Clear All</button>
+        <div class="search-container">
+          <input type="text" class="search-input" id="apartmentSearch" placeholder="Search anomalies..." aria-label="Search anomalies">
+        </div>
       </div>
       <div class="room" id="entrance">
-        <h2>Entrance</h2>
+        <h2 id="apartmentMapLabel">Entrance</h2>
+        <button class="reset-room-btn" onclick="resetRoom('entrance')">Reset Room</button>
         <ul>
-          <li><input type="checkbox">Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox">Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox">Missing Object - Manhole cover disappears</li>
-          <li><input type="checkbox">Extra Object - Can appears by the dumpster</li>
-          <li><input type="checkbox">Extra Object - Floating ball of cloth</li>
-          <li><input type="checkbox">Smoke - Pipe starts smoking</li>
-          <li><input type="checkbox">Lights - Light floating above bike</li>
-          <li><input type="checkbox">Object Movement - Object on doorstep moves to the right</li>
-          <li><input type="checkbox">Image Anomaly - The B becomes a C</li>
-          <li><input type="checkbox">Phone Anomaly - The intercom glows red / Audio cue</li>
-          <li><input type="checkbox">Weird Cat - Cat has long neck / Distorted meows play</li>
-          <li><input type="checkbox">Intruder - This gentleman needs to be let inside</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Extra Object - Can appears by the dumpster</li>
+          <li><input type="checkbox"> Extra Object - Floating ball of cloth</li>
+          <li><input type="checkbox"> Image Anomaly - The B becomes a C</li>
+          <li><input type="checkbox"> Intruder - This gentleman needs to be let inside</li>
+          <li><input type="checkbox"> Lights - Light floating above bike</li>
+          <li><input type="checkbox"> Missing Object - Manhole cover disappears</li>
+          <li><input type="checkbox"> Object Movement - Object on doorstep moves to the right</li>
+          <li><input type="checkbox"> Phone Anomaly - The intercom glows red / Audio cue</li>
+          <li><input type="checkbox"> Smoke - Pipe starts smoking</li>
+          <li><input type="checkbox"> Weird Cat - Cat has long neck / Distorted meows play</li>
         </ul>
       </div>
       <div class="room" id="stairway">
         <h2>Stairway</h2>
+        <button class="reset-room-btn" onclick="resetRoom('stairway')">Reset Room</button>
         <ul>
-          <li><input type="checkbox">Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox">Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox">Missing Object - Objects by white vase disappear</li>
-          <li><input type="checkbox">Missing Object - Outlet disappears</li>
-          <li><input type="checkbox">Missing Object - Doormat disappears</li>
-          <li><input type="checkbox">Extra Object - Trash bags appear until they fill the hallway</li>
-          <li><input type="checkbox">Extra Object - Mail appears in the mailslot</li>
-          <li><input type="checkbox">Extra Object - Eviction notice appears on door</li>
-          <li><input type="checkbox">Door Anomaly - Door handle appears on the wrong side</li>
-          <li><input type="checkbox">Image Anomaly - Missing poster becomes uncanny</li>
-          <li><input type="checkbox">Object Replacement - Rug becomes lighter grey</li>
-          <li><input type="checkbox">Object Movement - Words change to right alignment</li>
-          <li><input type="checkbox">Object Movement - Railing is wiggling</li>
-          <li><input type="checkbox">Blood - Bloody footprints above staircase</li>
-          <li><input type="checkbox">Intruder [Hag] - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Blood - Bloody footprints above staircase</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Door Anomaly - Door handle appears on the wrong side</li>
+          <li><input type="checkbox"> Extra Object - Eviction notice appears on door</li>
+          <li><input type="checkbox"> Extra Object - Mail appears in the mailslot</li>
+          <li><input type="checkbox"> Extra Object - Trash bags appear until they fill the hallway</li>
+          <li><input type="checkbox"> Image Anomaly - Missing poster becomes uncanny</li>
+          <li><input type="checkbox"> Intruder [Hag] - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Missing Object - Doormat disappears</li>
+          <li><input type="checkbox"> Missing Object - Objects by white vase disappear</li>
+          <li><input type="checkbox"> Missing Object - Outlet disappears</li>
+          <li><input type="checkbox"> Object Movement - Railing is wiggling</li>
+          <li><input type="checkbox"> Object Movement - Words change to right alignment</li>
+          <li><input type="checkbox"> Object Replacement - Rug becomes lighter grey</li>
         </ul>
       </div>
       <div class="room" id="clubRoom">
         <h2>Club Room</h2>
+        <button class="reset-room-btn" onclick="resetRoom('clubRoom')">Reset Room</button>
         <ul>
-          <li><input type="checkbox">Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox">Missing Object - White box disappears from counter</li>
-          <li><input type="checkbox">Missing Object - Outlet disappears</li>
-          <li><input type="checkbox">Missing Object - Light switch disappears</li>
-          <li><input type="checkbox">Extra Object - Second triangle ball rack appears on pool table</li>
-          <li><input type="checkbox">Extra Object - Object appears on top of TV</li>
-          <li><input type="checkbox">Image Anomaly - Arrow appears pointing up</li>
-          <li><input type="checkbox">Image Anomaly - Arrow appears pointing up</li>
-          <li><input type="checkbox">Object Replacement - Table mat becomes checkered</li>
-          <li><input type="checkbox">Object Movement - Books move to top right shelf</li>
-          <li><input type="checkbox">Object Movement - Mug and can swap places</li>
-          <li><input type="checkbox">Object Movement - Mug and can swap places</li>
-          <li><input type="checkbox">Object Movement - All chairs are facing camera</li>
-          <li><input type="checkbox">Intruder - Report ASAP / Failure to report will result in a Game Over</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Extra Object - Object appears on top of TV</li>
+          <li><input type="checkbox"> Extra Object - Second triangle ball rack appears on pool table</li>
+          <li><input type="checkbox"> Image Anomaly - Arrow appears pointing up</li>
+          <li><input type="checkbox"> Image Anomaly - Arrow appears pointing up</li>
+          <li><input type="checkbox"> Intruder - Report ASAP / Failure to report will result in a Game Over</li>
+          <li><input type="checkbox"> Missing Object - Light switch disappears</li>
+          <li><input type="checkbox"> Missing Object - Outlet disappears</li>
+          <li><input type="checkbox"> Missing Object - White box disappears from counter</li>
+          <li><input type="checkbox"> Object Movement - All chairs are facing camera</li>
+          <li><input type="checkbox"> Object Movement - Books move to top right shelf</li>
+          <li><input type="checkbox"> Object Movement - Mug and can swap places</li>
+          <li><input type="checkbox"> Object Movement - Mug and can swap places</li>
+          <li><input type="checkbox"> Object Replacement - Table mat becomes checkered</li>
         </ul>
       </div>
       <div class="room" id="basement">
         <h2>Basement</h2>
+        <button class="reset-room-btn" onclick="resetRoom('basement')">Reset Room</button>
         <ul>
-          <li><input type="checkbox">Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox">Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox">Missing Object - Trash disappears</li>
-          <li><input type="checkbox">Missing Object - Trash disappears</li>
-          <li><input type="checkbox">Missing Object - Door signs disappear</li>
-          <li><input type="checkbox">Extra Object - Third box appears</li>
-          <li><input type="checkbox">Nailmarks - Long scratches along the floor</li>
-          <li><input type="checkbox">Image Anomaly - Arrow sign colors invert</li>
-          <li><input type="checkbox">Object Replacement - Clock appears where giant screw was</li>
-          <li><input type="checkbox">Object Replacement - Larger box replaces small box</li>
-          <li><input type="checkbox">Object Replacement - Different magazines appear in the box</li>
-          <li><input type="checkbox">Object Replacement - Floor becomes tiles</li>
-          <li><input type="checkbox">Blood - Blood drips from vent</li>
-          <li><input type="checkbox">Intruder [Charger] - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Extra Object - Third box appears</li>
+          <li><input type="checkbox"> Image Anomaly - Arrow sign colors invert</li>
+          <li><input type="checkbox"> Intruder [Charger] - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Missing Object - Door signs disappear</li>
+          <li><input type="checkbox"> Missing Object - Trash disappears</li>
+          <li><input type="checkbox"> Missing Object - Trash disappears</li>
+          <li><input type="checkbox"> Nailmarks - Long scratches along the floor</li>
+          <li><input type="checkbox"> Object Replacement - Clock appears where giant screw was</li>
+          <li><input type="checkbox"> Object Replacement - Different magazines appear in the box</li>
+          <li><input type="checkbox"> Object Replacement - Floor becomes tiles</li>
+          <li><input type="checkbox"> Object Replacement - Larger box replaces small box</li>
+          <li><input type="checkbox"> Blood - Blood drips from vent</li>
         </ul>
       </div>
       <div class="room" id="storage">
         <h2>Storage</h2>
+        <button class="reset-room-btn" onclick="resetRoom('storage')">Reset Room</button>
         <ul>
-          <li><input type="checkbox">Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox">Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox">Missing Object - Padlock disappears</li>
-          <li><input type="checkbox">Missing Object - TV disappears</li>
-          <li><input type="checkbox">Extra Object - Coffee machine appears</li>
-          <li><input type="checkbox">Object Movement - Three boxes rotate</li>
-          <li><input type="checkbox">Object Movement - Flattened can moves closer to the camera</li>
-          <li><input type="checkbox">Image Anomaly - Red writing appears on boxes</li>
-          <li><input type="checkbox">Object Replacement - Box replaces flattened cardboard</li>
-          <li><input type="checkbox">Object Replacement - Bicycle appears where tricycle was</li>
-          <li><input type="checkbox">Broken Glass - Cracks on the back window</li>
-          <li><input type="checkbox">Intruder - Guy just chillin in the back</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Broken Glass - Cracks on the back window</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Extra Object - Coffee machine appears</li>
+          <li><input type="checkbox"> Image Anomaly - Red writing appears on boxes</li>
+          <li><input type="checkbox"> Intruder - Guy just chillin in the back</li>
+          <li><input type="checkbox"> Missing Object - Padlock disappears</li>
+          <li><input type="checkbox"> Missing Object - TV disappears</li>
+          <li><input type="checkbox"> Object Movement - Flattened can moves closer to the camera</li>
+          <li><input type="checkbox"> Object Movement - Three boxes rotate</li>
+          <li><input type="checkbox"> Object Replacement - Bicycle appears where tricycle was</li>
+          <li><input type="checkbox"> Object Replacement - Box replaces flattened cardboard</li>
         </ul>
       </div>
       <div class="room" id="garage">
         <h2>Garage</h2>
+        <button class="reset-room-btn" onclick="resetRoom('garage')">Reset Room</button>
         <ul>
-          <li><input type="checkbox">Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox">Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox">!!HUGE MAN!! - Report ASAP / Left-clicking to report twice will result in a Game Over</li>
-          <li><input type="checkbox">Missing Object - White line disappears</li>
-          <li><input type="checkbox">Missing Object - White line disappears</li>
-          <li><input type="checkbox">Extra Object - Floor jack appears</li>
-          <li><input type="checkbox">Object Movement - Tire moves to the top of the stack</li>
-          <li><input type="checkbox">Object Replacement - Tire rim changes</li>
-          <li><input type="checkbox">Object Replacement - Red car becomes silver</li>
-          <li><input type="checkbox">Dead Body - Body hanging from the wall</li>
-          <li><input type="checkbox">Oil Leak - Oil slowly leaks out from underneath car</li>
-          <li><input type="checkbox">Shadow - Subtle humanoid shadow</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> !!HUGE MAN!! - Report ASAP / Left-clicking to report twice will result in a Game Over</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Dead Body - Body hanging from the wall</li>
+          <li><input type="checkbox"> Extra Object - Floor jack appears</li>
+          <li><input type="checkbox"> Intruder - Guy just chillin in the back</li>
+          <li><input type="checkbox"> Missing Object - White line disappears</li>
+          <li><input type="checkbox"> Missing Object - White line disappears</li>
+          <li><input type="checkbox"> Object Movement - Tire moves to the top of the stack</li>
+          <li><input type="checkbox"> Object Replacement - Red car becomes silver</li>
+          <li><input type="checkbox"> Object Replacement - Tire rim changes</li>
+          <li><input type="checkbox"> Oil Leak - Oil slowly leaks out from underneath car</li>
+          <li><input type="checkbox"> Shadow - Subtle humanoid shadow</li>
         </ul>
       </div>
     </section>
-    <section class="map" id="logCabinMap">
+    <section class="map" id="logCabinMap" role="region" aria-labelledby="logCabinMapLabel">
       <div class="top-controls">
         <label for="logCabinRoomSelect">Choose a Room:</label>
-        <select id="logCabinRoomSelect">
+        <select id="logCabinRoomSelect" aria-label="Choose a Room">
           <option value="">-- Select a Room --</option>
           <option value="yard">Yard</option>
           <option value="entryway">Entryway</option>
@@ -379,124 +705,284 @@
           <option value="bathroom">Bathroom</option>
         </select>
         <button class="btn" id="clearAlllogCabin">Clear All</button>
+        <div class="search-container">
+          <input type="text" class="search-input" id="logCabinSearch" placeholder="Search anomalies..." aria-label="Search anomalies">
+        </div>
       </div>
       <div class="room" id="yard">
-        <h2>Yard</h2>
+        <h2 id="logCabinMapLabel">Yard</h2>
+        <button class="reset-room-btn" onclick="resetRoom('yard')">Reset Room</button>
         <ul>
-          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox"> Abyssal Storm - The camera will darken and it will become very windy</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Abyssal Storm - The camera will darken and it will become very windy</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Dead Body - Body buried in snow pile</li>
+          <li><input type="checkbox"> Extra Object - Creepy doll appears by the stairs</li>
+          <li><input type="checkbox"> Extra Object - Tree appears on left side</li>
+          <li><input type="checkbox"> Intruder [Competitor] - Report ASAP / Failing to report will result in a Game Over</li>
           <li><input type="checkbox"> Missing Object - Snow disappears from railing</li>
           <li><input type="checkbox"> Missing Object - Tree disappears behind cabin</li>
-          <li><input type="checkbox"> Extra Object - Tree appears on left side</li>
-          <li><input type="checkbox"> Extra Object - Creepy doll appears by the stairs</li>
           <li><input type="checkbox"> Object Movement - Icicles move further away</li>
           <li><input type="checkbox"> Object Movement - The shovel will start wiggling</li>
           <li><input type="checkbox"> You Are Mine - Messages written in the snow</li>
-          <li><input type="checkbox"> Dead Body - Body buried in snow pile</li>
-          <li><input type="checkbox"> Intruder [Competitor] - Report ASAP / Failing to report will result in a Game Over</li>
         </ul>
       </div>
       <div class="room" id="entryway">
         <h2>Entryway</h2>
+        <button class="reset-room-btn" onclick="resetRoom('entryway')">Reset Room</button>
         <ul>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly.</li>
-          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox"> Rift - Report ASAP / Camera zooms and distorts / Audio cue</li>
+          <li><input type="checkbox"> Extra Object - Book appears on shelf</li>
+          <li><input type="checkbox"> Extra Object - Key appears on dresser</li>
+          <li><input type="checkbox"> Extra Object - Paper appears on doormat</li>
+          <li><input type="checkbox"> Frosted Glass - Window on the front door is frosted over</li>
+          <li><input type="checkbox"> Image Anomaly - Man in painting no longer has a mustache and beard</li>
+          <li><input type="checkbox"> Intruder [Passenger] - Report ASAP / Failing to report will result in a Game Over</li>
           <li><input type="checkbox"> Missing Object - Boots underneath bench disappear</li>
           <li><input type="checkbox"> Missing Object - Mittens on radiator disappear</li>
-          <li><input type="checkbox"> Extra Object - Key appears on dresser</li>
-          <li><input type="checkbox"> Extra Object - Book appears on shelf</li>
-          <li><input type="checkbox"> Extra Object - Paper appears on doormat</li>
           <li><input type="checkbox"> Object Movement - Coat rack rotates</li>
           <li><input type="checkbox"> Object Movement - Green vase is broken on the ground</li>
-          <li><input type="checkbox"> Image Anomaly - Man in painting no longer has a mustache and beard</li>
           <li><input type="checkbox"> Object Replacement - White towel replaces pink towel</li>
-          <li><input type="checkbox"> Frosted Glass - Window on the front door is frosted over</li>
-          <li><input type="checkbox"> Intruder [Passenger] - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Rift - Report ASAP / Camera zooms and distorts / Audio cue</li>
         </ul>
       </div>
       <div class="room" id="livingRoom">
         <h2>Living Room</h2>
+        <button class="reset-room-btn" onclick="resetRoom('livingRoom')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox"> Missing Object - Books disappear from middle shelf</li>
-          <li><input type="checkbox"> Missing Object - Glass disappears from TV console</li>
-          <li><input type="checkbox"> Extra Object - Place mat appears on coffee table</li>
           <li><input type="checkbox"> Extra Object - Extra firewood appears by fireplace</li>
-          <li><input type="checkbox"> Object Movement - Chair is slowly rocking</li>
+          <li><input type="checkbox"> Extra Object - Place mat appears on coffee table</li>
           <li><input type="checkbox"> Image Anomaly - Nightmare dog</li>
-          <li><input type="checkbox"> Object Replacement - Bone becomes longer</li>
-          <li><input type="checkbox"> Object Replacement - Blue armchair replaces grey one</li>
-          <li><input type="checkbox"> Object Manipulation - Clock hands move backwards</li>
-          <li><input type="checkbox"> Strange Broadcast - Radio emits a red light / Audio cue</li>
           <li><input type="checkbox"> Intruder - Woman just tryna watch some TV in her birthday suit</li>
           <li><input type="checkbox"> Intruder (Failed Report) - Wtf you turned off her TV</li>
+          <li><input type="checkbox"> Missing Object - Books disappear from middle shelf</li>
+          <li><input type="checkbox"> Missing Object - Glass disappears from TV console</li>
+          <li><input type="checkbox"> Object Manipulation - Clock hands move backwards</li>
+          <li><input type="checkbox"> Object Movement - Chair is slowly rocking</li>
+          <li><input type="checkbox"> Object Replacement - Blue armchair replaces grey one</li>
+          <li><input type="checkbox"> Object Replacement - Bone becomes longer</li>
+          <li><input type="checkbox"> Strange Broadcast - Radio emits a red light / Audio cue</li>
         </ul>
       </div>
       <div class="room" id="kitchen">
         <h2>Kitchen</h2>
+        <button class="reset-room-btn" onclick="resetRoom('kitchen')">Reset Room</button>
         <ul>
-          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox"> Missing Object - Cans disappear from top shelf</li>
-          <li><input type="checkbox"> Missing Object - Clothing iron disappears from ironing board</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Door Anomaly - Bottom right cabinet door is open</li>
+          <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly</li>
           <li><input type="checkbox"> Extra Object - Mouse trap appears behind trashcan</li>
           <li><input type="checkbox"> Forbidden Snack - Uranium looks yummy</li>
-          <li><input type="checkbox"> Door Anomaly - Bottom right cabinet door is open</li>
-          <li><input type="checkbox"> Object Movement - Left bench moves closer to the camera</li>
-          <li><input type="checkbox"> Object Movement - Pan rotates on stove</li>
-          <li><input type="checkbox"> Object Movement - Bread box moves closer to microwave</li>
-          <li><input type="checkbox"> Object Movement - Box with lever rotates on bottom shelf</li>
-          <li><input type="checkbox"> Object Movement - Object on top of cabinets rotates</li>
-          <li><input type="checkbox"> Light - Oil lantern is lit</li>
           <li><input type="checkbox"> Intruder [Giant] - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Light - Oil lantern is lit</li>
+          <li><input type="checkbox"> Missing Object - Cans disappear from top shelf</li>
+          <li><input type="checkbox"> Missing Object - Clothing iron disappears from ironing board</li>
+          <li><input type="checkbox"> Object Movement - Box with lever rotates on bottom shelf</li>
+          <li><input type="checkbox"> Object Movement - Bread box moves closer to microwave</li>
+          <li><input type="checkbox"> Object Movement - Left bench moves closer to the camera</li>
+          <li><input type="checkbox"> Object Movement - Object on top of cabinets rotates</li>
+          <li><input type="checkbox"> Object Movement - Pan rotates on stove</li>
         </ul>
       </div>
       <div class="room" id="bedroom">
         <h2>Bedroom</h2>
+        <button class="reset-room-btn" onclick="resetRoom('bedroom')">Reset Room</button>
         <ul>
-          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
-          <li><input type="checkbox"> Missing Object - Bottom pillow on left bed disappears</li>
-          <li><input type="checkbox"> Missing Object - Top pillow on left bed disappears</li>
-          <li><input type="checkbox"> Missing Object - Right pillow on right bed disappears</li>
-          <li><input type="checkbox"> Missing Object - Chair in the bottom right corner disappears</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Extra Object - Green bottle appears on desk</li>
           <li><input type="checkbox"> !!HUGE SPIDER!! - Spider hanging from web in top right corner</li>
-          <li><input type="checkbox"> Object Movement - Chair next to desk faces bed</li>
           <li><input type="checkbox"> Image Anomaly - Magazine cover turns black</li>
           <li><input type="checkbox"> Image Anomaly - Portrait on right wall becomes man with mustache and beard</li>
+          <li><input type="checkbox"> Intruder - Give this gentleman some privacy</li>
+          <li><input type="checkbox"> Missing Object - Bottom pillow on left bed disappears</li>
+          <li><input type="checkbox"> Missing Object - Chair in the bottom right corner disappears</li>
+          <li><input type="checkbox"> Missing Object - Right pillow on right bed disappears</li>
+          <li><input type="checkbox"> Missing Object - Top pillow on left bed disappears</li>
+          <li><input type="checkbox"> Object Movement - Chair next to desk faces bed</li>
           <li><input type="checkbox"> Object Replacement - Action figure replaces green jar</li>
           <li><input type="checkbox"> Light - Lamp will start flickering</li>
-          <li><input type="checkbox"> Intruder - Give this gentleman some privacy</li>
         </ul>
       </div>
       <div class="room" id="bathroom">
         <h2>Bathroom</h2>
+        <button class="reset-room-btn" onclick="resetRoom('bathroom')">Reset Room</button>
         <ul>
-          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
-          <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly.</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Door Anomaly - Door is standing open</li>
+          <li><input type="checkbox"> E - It's important to select the correct camera for this anomaly.</li>
+          <li><input type="checkbox"> Extra Object - Buckets appear in a stack</li>
+          <li><input type="checkbox"> Image Anomaly - Portrait on right wall becomes man with mustache and beard</li>
+          <li><input type="checkbox"> Intruder - I hate skibidi toilet</li>
+          <li><input type="checkbox"> Missing Object - Brown towel disappears from hanger</li>
+          <li><input type="checkbox"> Missing Object - Ladle disappears from table</li>
           <li><input type="checkbox"> Missing Object - Toilet paper disappears</li>
           <li><input type="checkbox"> Missing Object - Wash basin disappears</li>
-          <li><input type="checkbox"> Missing Object - Ladle disappears from table</li>
-          <li><input type="checkbox"> Missing Object - Brown towel disappears from hanger</li>
-          <li><input type="checkbox"> Object Movement - Yellow striped towel moves over one hook</li>
-          <li><input type="checkbox"> Object Movement - Pink towel floats around outside the door</li>
-          <li><input type="checkbox"> Object Movement - Lid is on top of the laundry basket</li>
           <li><input type="checkbox"> Object Movement - Blue and black soap bottles swap places</li>
+          <li><input type="checkbox"> Object Movement - Lid is on top of the laundry basket</li>
+          <li><input type="checkbox"> Object Movement - Pink towel floats around outside the door</li>
           <li><input type="checkbox"> Object Movement - The wash basins are gettin busy</li>
-          <li><input type="checkbox"> Extra Object - Buckets appear in a stack</li>
+          <li><input type="checkbox"> Object Movement - Yellow striped towel moves over one hook</li>
           <li><input type="checkbox"> Object Replacement - Yellow bottle replaces red one</li>
-          <li><input type="checkbox"> Door Anomaly - Door is standing open</li>
-          <li><input type="checkbox"> Intruder - I hate skibidi toilet</li>
         </ul>
       </div>
     </section>
+    <section class="map" id="gasStation" role="region" aria-labelledby="gasStationLabel">
+      <div class="top-controls">
+        <label for="gasStationRoomSelect">Choose a Room:</label>
+        <select id="gasStationRoomSelect" aria-label="Choose a Room">
+          <option value="">-- Select a Room --</option>
+          <option value="gasPumps">Gas Pumps</option>
+          <option value="store">Store</option>
+          <option value="cafeteria">Cafeteria</option>
+          <option value="parkingLot">Parking Lot</option>
+          <option value="backyard">Backyard</option>
+          <option value="road">Road</option>
+        </select>
+        <button class="btn" id="clearAllGasStation">Clear All</button>
+        <div class="search-container">
+          <input type="text" class="search-input" id="gasStationSearch" placeholder="Search anomalies..." aria-label="Search anomalies">
+        </div>
+      </div>
+      <div class="room" id="gasPumps">
+        <h2 id="gasStationLabel">Gas Pumps</h2>
+        <button class="reset-room-btn" onclick="resetRoom('gasPumps')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Extra Object - Third gas pump appears</li>
+          <li><input type="checkbox"> Image Anomaly - 2 replaces 3</li>
+          <li><input type="checkbox"> Image Anomaly - Sign turns into a mountain surrounded by UFO's</li>
+          <li><input type="checkbox"> Image Anomaly - UFO replaces flower symbol</li>
+          <li><input type="checkbox"> Intruder - A thirsty gentleman</li>
+          <li><input type="checkbox"> Missing Object - Back trash can disappears</li>
+          <li><input type="checkbox"> Missing Object - Front trash can disappears</li>
+          <li><input type="checkbox"> Object Movement - Bottles all shift to the right</li>
+          <li><input type="checkbox"> Object Movement - Red can spins</li>
+          <li><input type="checkbox"> Object Replacement - Middle row of bottles turn white</li>
+          <li><input type="checkbox"> Rush Hour - Lots of cars and honking</li>
+        </ul>
+      </div>
+      <div class="room" id="store">
+        <h2>Store</h2>
+        <button class="reset-room-btn" onclick="resetRoom('store')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Footprints - Dusty footprints on doormat</li>
+          <li><input type="checkbox"> Image Anomaly - Happy guy on dog food bag</li>
+          <li><input type="checkbox"> Intruder [Gambler] - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Missing Object - Green can disappears</li>
+          <li><input type="checkbox"> Missing Object - Paper disappears</li>
+          <li><input type="checkbox"> Missing Object - Red and yellow bag disappears</li>
+          <li><input type="checkbox"> Missing Object - White carton disappears</li>
+          <li><input type="checkbox"> Object Movement - Blue and orange lottery machines swap places</li>
+          <li><input type="checkbox"> Object Replacement - The floor turns green</li>
+          <li><input type="checkbox"> Object Replacement - White and green bottles replace black bottles</li>
+          <li><input type="checkbox"> Object Replacement - White and green bottles replace white bottles</li>
+          <li><input type="checkbox"> Rift - Report ASAP / Camera zooms and distorts / Audio cue</li>
+        </ul>
+      </div>
+      <div class="room" id="cafeteria">
+        <h2>Cafeteria</h2>
+        <button class="reset-room-btn" onclick="resetRoom('cafeteria')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Extra Object - Severed head in donut case</li>
+          <li><input type="checkbox"> Image Anomaly - Bite taken out of hotdog</li>
+          <li><input type="checkbox"> Image Anomaly - Poster says KNEEL instead of REST</li>
+          <li><input type="checkbox"> Image Anomaly - Price reads 4.50 instead of 3.50</li>
+          <li><input type="checkbox"> Image Anomaly - Sign says "Lätsä intoilija" instead of "Linjasto Ilitää"</li>
+          <li><input type="checkbox"> Intruder - Difficult to see / You'll notice some distortion in the circled area</li>
+          <li><input type="checkbox"> Lights - The lights flicker subtly</li>
+          <li><input type="checkbox"> Missing Object - Chair disappears</li>
+          <li><input type="checkbox"> Missing Object - Metal pitchers disappear</li>
+          <li><input type="checkbox"> Missing Object - Monitor disappears</li>
+          <li><input type="checkbox"> No Free Samples - Messy counter</li>
+          <li><input type="checkbox"> Object Movement - Newspaper moves to the right</li>
+        </ul>
+      </div>
+      <div class="room" id="parkingLot">
+        <h2>Parking Lot</h2>
+        <button class="reset-room-btn" onclick="resetRoom('parkingLot')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Extra Object - Crowbar appears on hood of red car</li>
+          <li><input type="checkbox"> Extra Object - Flyer appears on windshield of white car</li>
+          <li><input type="checkbox"> Extra Object - Shopping cart appears behind white car</li>
+          <li><input type="checkbox"> Image Anomaly - Alien graffiti replaces Hero graffiti</li>
+          <li><input type="checkbox"> Intruder [Stalker] - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Light - Lights on blue car turn on</li>
+          <li><input type="checkbox"> Missing Object - Pole behind blue car disappears</li>
+          <li><input type="checkbox"> Missing Object - Pole behind red car disappears</li>
+          <li><input type="checkbox"> Object Replacement - Green bottle replaces can</li>
+          <li><input type="checkbox"> Snake - Snake appears in bottom right corner</li>
+          <li><input type="checkbox"> Steam / Smoke / Fog - Fog fills the parking lot</li>
+        </ul>
+      </div>
+      <div class="room" id="backyard">
+        <h2>Backyard</h2>
+        <button class="reset-room-btn" onclick="resetRoom('backyard')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Dead Body - Body underneath red car</li>
+          <li><input type="checkbox"> Door Anomaly - Door handle moves</li>
+          <li><input type="checkbox"> Extra Object - Two slices of pizza appear</li>
+          <li><input type="checkbox"> Image Anomaly - Numbers on hopscotch appear backwards</li>
+          <li><input type="checkbox"> Intruder - Ball will teleport if you try to click-and-hold</li>
+          <li><input type="checkbox"> Light - Lamp flickers subtly</li>
+          <li><input type="checkbox"> Missing Object - Box disappears</li>
+          <li><input type="checkbox"> Missing Object - Traffic cone disappears</li>
+          <li><input type="checkbox"> Object Movement - Dumpster lid is open</li>
+          <li><input type="checkbox"> Object Replacement - Blue can replaces green can</li>
+        </ul>
+      </div>
+      <div class="room" id="road">
+        <h2>Road</h2>
+        <button class="reset-room-btn" onclick="resetRoom('road')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> CAR - Report ASAP / Failing to report will result in a Game Over</li>
+          <li><input type="checkbox"> Extra Object - Crosswalk appears behind gas prices</li>
+          <li><input type="checkbox"> Extra Object - Shoes appear hanging from light on the left</li>
+          <li><input type="checkbox"> Illegal Aliens - Second part of the UFO anomaly</li>
+          <li><input type="checkbox"> Image Anomaly - Gas pump image flipped horizontally</li>
+          <li><input type="checkbox"> Image Anomaly - Road lines appear white instead of yellow</li>
+          <li><input type="checkbox"> Image Anomaly - Sign says 60 instead of 120</li>
+          <li><input type="checkbox"> Insane Prices - Super Duper Über gas costs 6.666</li>
+          <li><input type="checkbox"> Lights - Furthest streetlamp is off</li>
+          <li><input type="checkbox"> Missing Object - Object at base of gas prices sign disappears</li>
+          <li><input type="checkbox"> Steam / Smoke / Fog - Fog fills the road</li>
+          <li><input type="checkbox"> UFO - Alien invasion</li>
+        </ul>
+      </div>
+    </section>
+    <section class="map" id="museum" role="region" aria-labelledby="museumLabel">
+      <div class="top-controls">
+        <h2 id="museumLabel">Museum</h2>
+        <p>This map is currently in development. Check back later for updates!</p>
+      </div>
+    </section>
+    <section class="map" id="factory" role="region" aria-labelledby="factoryLabel">
+      <div class="top-controls">
+        <h2 id="factoryLabel">Factory</h2>
+        <p>This map is currently in development. Check back later for updates!</p>
+      </div>
+    </section>
   </main>
+  <footer>
+    <p>&copy; 2025 Jordan Rodriguez. All rights reserved.</p>
+    <p><a href="https://github.com/gm-linux" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+  </footer>
   <div id="bmc-container">
     <script type="text/javascript" 
       src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
@@ -511,6 +997,7 @@
       data-coffee-color="#ffffff">
     </script>
   </div>
+  <button class="back-to-top" id="backToTopBtn">&#8679;</button>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const mapSelect = document.getElementById('mapSelect');
@@ -520,20 +1007,40 @@
       const clearAllapartment = document.getElementById('clearAllapartment');
       const clearAlllogCabin = document.getElementById('clearAlllogCabin');
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const body = document.body;
+      const backToTopBtn = document.getElementById('backToTopBtn');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const clearAllGasStation = document.getElementById('clearAllGasStation');
     
       maps.forEach(map => map.style.display = 'none');
     
       mapSelect.addEventListener('change', () => {
-        maps.forEach(map => map.style.display = 'none');
-        const selectedMap = document.getElementById(mapSelect.value);
-        if (selectedMap) selectedMap.style.display = 'block';
+        loadingSpinner.style.display = 'block';
+        setTimeout(() => {
+          maps.forEach(map => {
+            map.style.display = 'none';
+            map.classList.remove('show');
+          });
+          const selectedMap = document.getElementById(mapSelect.value);
+          if (selectedMap) {
+            selectedMap.style.display = 'block';
+            setTimeout(() => selectedMap.classList.add('show'), 10);
+          }
+          loadingSpinner.style.display = 'none';
+        }, 500);
       });
     
       roomSelects.forEach(select => {
         select.addEventListener('change', () => {
-          document.querySelectorAll('.room').forEach(room => room.style.display = 'none');
+          document.querySelectorAll('.room').forEach(room => {
+            room.style.display = 'none';
+            room.classList.remove('show');
+          });
           if (select.value) {
-            document.getElementById(select.value).style.display = 'block';
+            const selectedRoom = document.getElementById(select.value);
+            selectedRoom.style.display = 'block';
+            setTimeout(() => selectedRoom.classList.add('show'), 10);
           }
         });
       });
@@ -550,6 +1057,7 @@
       clearAllSpa.addEventListener('click', () => clearAllCheckboxes('spaMap'));
       clearAllapartment.addEventListener('click', () => clearAllCheckboxes('apartmentMap'));
       clearAlllogCabin.addEventListener('click', () => clearAllCheckboxes('logCabinMap'));
+      clearAllGasStation.addEventListener('click', () => clearAllCheckboxes('gasStation'));
     
       checkboxes.forEach(checkbox => {
         const listItem = checkbox.parentNode;
@@ -579,7 +1087,70 @@
           }
         });
       });
+
+      // Save dark mode preference in local storage
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        body.classList.add('dark-mode');
+      }
+
+      darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+          localStorage.setItem('dark-mode', 'enabled');
+        } else {
+          localStorage.setItem('dark-mode', 'disabled');
+        }
+      });
+
+      const searchInputs = document.querySelectorAll('.search-input');
+
+      searchInputs.forEach(input => {
+        input.addEventListener('input', () => {
+          const mapId = input.id.replace('Search', 'Map');
+          const searchTerm = input.value.toLowerCase();
+          const anomalies = document.querySelectorAll(`#${mapId} .room ul li`);
+
+          anomalies.forEach(anomaly => {
+            const text = anomaly.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+              anomaly.style.display = '';
+            } else {
+              anomaly.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Back to top button functionality
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTopBtn.style.display = 'block';
+        } else {
+          backToTopBtn.style.display = 'none';
+        }
+      });
+
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
-    </script>
+
+    function resetRoom(roomId) {
+      const checkboxes = document.querySelectorAll(`#${roomId} input[type="checkbox"]`);
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+        checkbox.parentNode.style.color = ''; // Reset text color
+        checkbox.parentNode.style.fontWeight = ''; // Reset font weight
+      });
+    }
+  </script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXX-Y');
+  </script>
 </body>
 </html>
