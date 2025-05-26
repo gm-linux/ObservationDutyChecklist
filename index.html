@@ -1134,7 +1134,10 @@
 
       searchInputs.forEach(input => {
         input.addEventListener('input', () => {
-          const mapId = input.id.replace('Search', 'Map');
+          let mapId = input.id.replace('Search', 'Map');
+          if (input.id === 'gasStationSearch') {
+            mapId = 'gasStation'; // Explicitly handle gas station case
+          }
           const searchTerm = input.value.toLowerCase();
           const anomalies = document.querySelectorAll(`#${mapId} .room ul li`);
 
