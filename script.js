@@ -223,29 +223,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const sideRoomNotes = document.getElementById('sideRoomNotes');
   const sideNotesRoomName = document.getElementById('sideNotesRoomName');
 
-  // Helper to get current visible room id
   function getCurrentRoomId() {
     const visibleRoom = document.querySelector('.room.show');
     return visibleRoom ? visibleRoom.id : null;
   }
 
-  // Load notes for current room
   function loadSideNotes() {
     const notes = JSON.parse(localStorage.getItem('anomalyNotes') || '{}');
     const roomId = getCurrentRoomId();
     if (roomId) {
+      sideNotesPanel.classList.add('active');
       sideRoomNotes.value = notes[roomId] || '';
       const roomTitle = document.querySelector('.room.show h2');
       sideNotesRoomName.textContent = roomTitle ? roomTitle.textContent + ' Notes' : 'Room Notes';
       sideRoomNotes.disabled = false;
     } else {
+      sideNotesPanel.classList.remove('active');
       sideRoomNotes.value = '';
       sideNotesRoomName.textContent = 'Room Notes';
       sideRoomNotes.disabled = true;
     }
   }
 
-  // Save notes for current room
   function saveSideNotes() {
     const notes = JSON.parse(localStorage.getItem('anomalyNotes') || '{}');
     const roomId = getCurrentRoomId();
@@ -255,23 +254,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Update notes panel when room changes
   function updateSideNotesOnRoomChange() {
     loadSideNotes();
     sideRoomNotes.removeEventListener('input', saveSideNotes);
     sideRoomNotes.addEventListener('input', saveSideNotes);
   }
 
-  // Listen for room changes (room select, map select, search)
   const observeRoomChange = new MutationObserver(updateSideNotesOnRoomChange);
   document.querySelectorAll('.room').forEach(room => {
     observeRoomChange.observe(room, { attributes: true, attributeFilter: ['class', 'style'] });
   });
-  // Also update on map change
   if (mapSelect) mapSelect.addEventListener('change', () => setTimeout(updateSideNotesOnRoomChange, 600));
-  // Also update on room select
   roomSelects.forEach(select => select.addEventListener('change', () => setTimeout(updateSideNotesOnRoomChange, 100)));
-  // Also update after search
   document.querySelectorAll('.search-input').forEach(input => input.addEventListener('input', () => setTimeout(updateSideNotesOnRoomChange, 100)));
 
   // Initial load

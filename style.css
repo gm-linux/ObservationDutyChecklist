@@ -428,10 +428,13 @@ footer {
   z-index: 1100;
   min-height: 220px;
   border-radius: 14px;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 0.7em;
   transition: box-shadow 0.3s, background 0.3s;
+}
+#sideNotesPanel.active {
+  display: flex;
 }
 #sideNotesPanel h3 {
   margin-bottom: 0.5em;
