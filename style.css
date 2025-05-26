@@ -387,34 +387,6 @@ footer {
   background-color: #444;
   color: #e0e0e0;
 }
-.room-notes {
-  width: 100%;
-  min-height: 60px;
-  font-size: 1.1rem;
-  padding: 0.75em 1em;
-  border: 1.5px solid #b0b0b0;
-  border-radius: 8px;
-  background: #f8fafc;
-  color: #222;
-  margin-bottom: 1em;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  resize: vertical;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-.room-notes:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px #b3d8ff;
-  outline: none;
-}
-.dark-mode .room-notes {
-  background: #23272f;
-  color: #e0e0e0;
-  border: 1.5px solid #444;
-}
-.dark-mode .room-notes:focus {
-  border-color: #ff5722;
-  box-shadow: 0 0 0 2px #ffbfa3;
-}
 #sideNotesPanel {
   position: fixed;
   top: 110px;
