@@ -438,7 +438,7 @@
         <option value="apartmentMap">APARTMENT BUILDING</option>
         <option value="logCabinMap">LOG CABIN</option>
         <option value="gasStation">GAS STATION</option>
-        <option value="museum">!!IN DEV!! MUSEUM</option>
+        <option value="museum">MUSEUM</option>
         <option value="factory">!!IN DEV!! FACTORY</option>
       </select>
     </div>
@@ -879,6 +879,7 @@
       </div>
       <div class="room" id="gasPumps">
         <h2 id="gasStationLabel">Gas Pumps</h2>
+        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('gasPumps')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -898,6 +899,7 @@
       </div>
       <div class="room" id="store">
         <h2>Store</h2>
+        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('store')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -918,6 +920,7 @@
       </div>
       <div class="room" id="cafeteria">
         <h2>Cafeteria</h2>
+        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('cafeteria')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -938,6 +941,7 @@
       </div>
       <div class="room" id="parkingLot">
         <h2>Parking Lot</h2>
+        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('parkingLot')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -957,6 +961,7 @@
       </div>
       <div class="room" id="backyard">
         <h2>Backyard</h2>
+        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('backyard')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -975,6 +980,7 @@
       </div>
       <div class="room" id="road">
         <h2>Road</h2>
+        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('road')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -996,8 +1002,123 @@
     </section>
     <section class="map" id="museum" role="region" aria-labelledby="museumLabel">
       <div class="top-controls">
-        <h2 id="museumLabel">Museum</h2>
-        <p>This map is currently in development. Check back later for updates!</p>
+        <label for="museumRoomSelect">Choose a Room:</label>
+        <select id="museumRoomSelect" aria-label="Choose a Room">
+          <option value="">-- Select a Room --</option>
+          <option value="museumLobby">Lobby</option>
+          <option value="paintingGallery">Painting Gallery</option>
+          <option value="statueGallery">Statue Gallery</option>
+          <option value="roundGallery">Round Gallery</option>
+          <option value="museumCafeteria">Cafeteria</option>
+        </select>
+        <button class="btn" id="clearAllMuseum">Clear All</button>
+        <div class="search-container">
+          <input type="text" class="search-input" id="museumSearch" placeholder="Search anomalies..." aria-label="Search anomalies">
+        </div>
+      </div>
+      <div class="room" id="museumLobby">
+        <h2>Lobby</h2>
+        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
+        <button class="reset-room-btn" onclick="resetRoom('museumLobby')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Missing Object - Potted plant disappears</li>
+          <li><input type="checkbox"> Object Movement - Red and black pamphlets swap places</li>
+          <li><input type="checkbox"> Object Movement - Left chair is facing camera</li>
+          <li><input type="checkbox"> Image Anomaly - Signs say "Utställningar/Museibutiken/Ut" instead of "Näyttelytilat/Lahjapuoti/Ulos"</li>
+          <li><input type="checkbox"> Image Anomaly - Top sign says "Kahvila" instead of "Kahvio"</li>
+          <li><input type="checkbox"> Image Anomaly - Slideshow images are off</li>
+          <li><input type="checkbox"> Image Anomaly - Whiteboard says 20e instead of 10e</li>
+          <li><input type="checkbox"> Object Replacement - Monitor becomes dark grey instead of white</li>
+          <li><input type="checkbox"> Intruder [Void] - Guy with head stuck in the wall</li>
+          <li><input type="checkbox"> Intruder (Failed Report) - Report ASAP / Failing to report will result in a Game Over</li>
+        </ul>
+      </div>
+      <div class="room" id="paintingGallery">
+        <h2>Painting Gallery</h2>
+        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
+        <button class="reset-room-btn" onclick="resetRoom('paintingGallery')">Reset Room</button>
+        <ul>  
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Intruder [Prince] - Report ASAP / Looking at the Painting Gallery camera will result in a Game Over</li>
+          <li><input type="checkbox"> Missing Object - Light on the far left disappears</li>
+          <li><input type="checkbox"> Missing Object - Light second from left disappears</li>
+          <li><input type="checkbox"> Missing Object - Light second from right disappears</li>
+          <li><input type="checkbox"> Missing Object - Light on the far right disappears</li>
+          <li><input type="checkbox"> Extra Object - Pen appears on journal</li>
+          <li><input type="checkbox"> Object Movement - Cup moves to the next bench</li>
+          <li><input type="checkbox"> Image Anomaly - Door is open in painting</li>
+          <li><input type="checkbox"> Image Anomaly - Painting flips horizontally</li>
+          <li><input type="checkbox"> Image Anomaly - Angel has 3 pairs of wings instead of 4 pairs</li>
+          <li><input type="checkbox"> Object Manipulation - Bench on top left is shorter</li>
+          <li><input type="checkbox"> Dead Body - Body in the janitorial cart</li>
+        </ul>
+      </div>
+      <div class="room" id="statueGallery">
+        <h2>Statue Gallery</h2>
+        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
+        <button class="reset-room-btn" onclick="resetRoom('statueGallery')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Missing Object - Trash can disappears</li>
+          <li><input type="checkbox"> Missing Object - Painting on left wall disappears</li>
+          <li><input type="checkbox"> Extra Object - Bench and plant appears</li>
+          <li><input type="checkbox"> Extra Object - Bone inside trash can</li>
+          <li><input type="checkbox"> Extra Object - Light appears on far right</li>
+          <li><input type="checkbox"> Image Anomaly - Baby has no eyes</li>
+          <li><input type="checkbox"> Image Anomaly - Landscape turns orange</li>
+          <li><input type="checkbox"> Object Replacement - Round base on far statue replaces square base</li>
+          <li><input type="checkbox"> Room Manipulation - Room is shorter</li>
+          <li><input type="checkbox"> Object Movement - Information plaque moves to the left of the statue</li>
+          <li><input type="checkbox"> Object Movement - Information plaque moves to the right down the wall</li>
+          <li><input type="checkbox"> Object Movement - Statue is facing the camera</li>
+          <li><input type="checkbox"> Intruder - Report ASAP / Failing to report will result in a Game Over</li>
+        </ul>
+      </div>
+      <div class="room" id="roundGallery">
+        <h2>Round Gallery</h2>
+        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
+        <button class="reset-room-btn" onclick="resetRoom('roundGallery')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Missing Object - Information plaque on far left disappears</li>
+          <li><input type="checkbox"> Missing Object - Information plaque second from right disappears</li>
+          <li><input type="checkbox"> Missing Object - Information plaque on far right disappears</li>
+          <li><input type="checkbox"> Image Anomaly - Portrait becomes symmetrical</li>
+          <li><input type="checkbox"> Image Anomaly - Man is beheaded</li>
+          <li><input type="checkbox"> Image Anomaly - Sheet disappears</li>
+          <li><input type="checkbox"> Image Anomaly - Facial features become smooth</li>
+          <li><input type="checkbox"> Lights - The light above the red painting subtly flickers</li>
+          <li><input type="checkbox"> Object Replacement - Flooring becomes tiles</li>
+          <li><input type="checkbox"> Object Movement - Information plaque moves to the left side of statue</li>
+          <li><input type="checkbox"> Object Movement - Red ropes rotate</li>
+          <li><input type="checkbox"> Object Movement - Statue flips horizontally</li>
+          <li><input type="checkbox"> Object Movement - Statue is upright and closer to the camera</li>
+          <li><input type="checkbox"> Intruder - Otherworldly being has entered the chat</li>
+        </ul>
+      </div>
+      <div class="room" id="museumCafeteria">
+        <h2>Cafeteria</h2>
+        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
+        <button class="reset-room-btn" onclick="resetRoom('museumCafeteria')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Extra Object - Extra donut appears</li>
+          <li><input type="checkbox"> Extra Object - Small red balls appear in the fruit bowl</li>
+          <li><input type="checkbox"> Object Movement - Napkin dispensers swap places</li>
+          <li><input type="checkbox"> Object Movement - Plates swap places</li>
+          <li><input type="checkbox"> Image Anomaly - Computer red-screening</li>
+          <li><input type="checkbox"> Image Anomaly - Picture turns into slime pouring out of cup</li>
+          <li><input type="checkbox"> Image Anomaly - Painting becomes a bunch of smiling faces</li>
+          <li><input type="checkbox"> Object Manipulation - The clock hand will be moving backwards</li>
+          <li><input type="checkbox"> Object Manipulation - Sandwich becomes moldy</li>
+          <li><input type="checkbox"> Intruder - A gentleman enjoying his coffee</li>
+        </ul>
       </div>
     </section>
     <section class="map" id="factory" role="region" aria-labelledby="factoryLabel">
@@ -1040,6 +1161,7 @@
       const backToTopBtn = document.getElementById('backToTopBtn');
       const loadingSpinner = document.getElementById('loadingSpinner');
       const clearAllGasStation = document.getElementById('clearAllGasStation');
+      const clearAllMuseum = document.getElementById('clearAllMuseum');
     
       maps.forEach(map => map.style.display = 'none');
     
@@ -1086,6 +1208,7 @@
       clearAllapartment.addEventListener('click', () => clearAllCheckboxes('apartmentMap'));
       clearAlllogCabin.addEventListener('click', () => clearAllCheckboxes('logCabinMap'));
       clearAllGasStation.addEventListener('click', () => clearAllCheckboxes('gasStation'));
+      clearAllMuseum.addEventListener('click', () => clearAllCheckboxes('museum'));
     
       checkboxes.forEach(checkbox => {
         const listItem = checkbox.parentNode;
@@ -1134,9 +1257,11 @@
 
       searchInputs.forEach(input => {
         input.addEventListener('input', () => {
-          let mapId = input.id.replace('Search', 'Map');
+          let mapId = input.id.replace('Search', '');
           if (input.id === 'gasStationSearch') {
             mapId = 'gasStation'; // Explicitly handle gas station case
+          } else if (input.id === 'museumSearch') {
+            mapId = 'museum'; // Explicitly handle museum case
           }
           const searchTerm = input.value.toLowerCase();
           const anomalies = document.querySelectorAll(`#${mapId} .room ul li`);
@@ -1152,9 +1277,10 @@
         });
       });
 
+     
       // Back to top button functionality
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
+        if (window.scrollY >  300) {
           backToTopBtn.style.display = 'block';
         } else {
           backToTopBtn.style.display = 'none';
