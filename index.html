@@ -20,6 +20,10 @@
     <p>Made by Jordan Rodriguez</p>
   </header>
   <main>
+    <aside id="sideNotesPanel" aria-label="Room Notes">
+      <h3 id="sideNotesRoomName">Room Notes</h3>
+      <textarea id="sideRoomNotes" placeholder="Add your notes here..." aria-label="Custom notes for this room"></textarea>
+    </aside>
     <div class="map-select-container">
       <label for="mapSelect">Choose a Map:</label>
       <select id="mapSelect" aria-label="Choose a Map">
@@ -469,7 +473,6 @@
       </div>
       <div class="room" id="gasPumps">
         <h2 id="gasStationLabel">Gas Pumps</h2>
-        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('gasPumps')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -489,7 +492,6 @@
       </div>
       <div class="room" id="store">
         <h2>Store</h2>
-        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('store')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -510,7 +512,6 @@
       </div>
       <div class="room" id="cafeteria">
         <h2>Cafeteria</h2>
-        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('cafeteria')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -531,7 +532,6 @@
       </div>
       <div class="room" id="parkingLot">
         <h2>Parking Lot</h2>
-        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('parkingLot')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -551,7 +551,6 @@
       </div>
       <div class="room" id="backyard">
         <h2>Backyard</h2>
-        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('backyard')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -570,7 +569,6 @@
       </div>
       <div class="room" id="road">
         <h2>Road</h2>
-        <div class="room-tip"><strong>Tip:</strong> Camera Malfunction - Camera stops appearing in cycle</div>
         <button class="reset-room-btn" onclick="resetRoom('road')">Reset Room</button>
         <ul>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
@@ -590,7 +588,7 @@
         </ul>
       </div>
     </section>
-    <section class="map" id="museum" role="region" aria-labelledby="museumLabel">
+        <section class="map" id="museum" role="region" aria-labelledby="museumLabel">
       <div class="top-controls">
         <label for="museumRoomSelect">Choose a Room:</label>
         <select id="museumRoomSelect" aria-label="Choose a Room">
@@ -608,9 +606,9 @@
       </div>
       <div class="room" id="museumLobby">
         <h2>Lobby</h2>
-        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
         <button class="reset-room-btn" onclick="resetRoom('museumLobby')">Reset Room</button>
         <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
           <li><input type="checkbox"> Missing Object - Potted plant disappears</li>
@@ -627,9 +625,9 @@
       </div>
       <div class="room" id="paintingGallery">
         <h2>Painting Gallery</h2>
-        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
         <button class="reset-room-btn" onclick="resetRoom('paintingGallery')">Reset Room</button>
-        <ul>  
+        <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
           <li><input type="checkbox"> Intruder [Prince] - Report ASAP / Looking at the Painting Gallery camera will result in a Game Over</li>
@@ -648,9 +646,9 @@
       </div>
       <div class="room" id="statueGallery">
         <h2>Statue Gallery</h2>
-        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
         <button class="reset-room-btn" onclick="resetRoom('statueGallery')">Reset Room</button>
         <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
           <li><input type="checkbox"> Missing Object - Trash can disappears</li>
@@ -670,9 +668,9 @@
       </div>
       <div class="room" id="roundGallery">
         <h2>Round Gallery</h2>
-        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
         <button class="reset-room-btn" onclick="resetRoom('roundGallery')">Reset Room</button>
         <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
           <li><input type="checkbox"> Missing Object - Information plaque on far left disappears</li>
@@ -693,9 +691,9 @@
       </div>
       <div class="room" id="museumCafeteria">
         <h2>Cafeteria</h2>
-        <div class="room-tip"><strong>Tip:</strong> Report Window Anomalies</div>
         <button class="reset-room-btn" onclick="resetRoom('museumCafeteria')">Reset Room</button>
         <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
           <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
           <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
           <li><input type="checkbox"> Extra Object - Extra donut appears</li>

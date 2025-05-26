@@ -175,6 +175,113 @@ document.addEventListener('DOMContentLoaded', () => {
   backToTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  // Save and load progress
+  function saveProgress() {
+    const progress = {};
+    document.querySelectorAll('.room').forEach(room => {
+      const roomId = room.id;
+      progress[roomId] = [];
+      room.querySelectorAll('input[type="checkbox"]').forEach((cb, idx) => {
+        if (cb.checked) progress[roomId].push(idx);
+      });
+    });
+    localStorage.setItem('anomalyProgress', JSON.stringify(progress));
+  }
+
+  function loadProgress() {
+    const progress = JSON.parse(localStorage.getItem('anomalyProgress') || '{}');
+    document.querySelectorAll('.room').forEach(room => {
+      const roomId = room.id;
+      const checkedIdxs = progress[roomId] || [];
+      room.querySelectorAll('input[type="checkbox"]').forEach((cb, idx) => {
+        cb.checked = checkedIdxs.includes(idx);
+        cb.parentNode.style.color = cb.checked ? 'red' : '';
+        cb.parentNode.style.fontWeight = cb.checked ? 'bold' : '';
+      });
+    });
+  }
+
+  // Save progress on checkbox change
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', saveProgress);
+  });
+
+  // Save progress on reset
+  window.resetRoom = function(roomId) {
+    const checkboxes = document.querySelectorAll(`#${roomId} input[type="checkbox"]`);
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = false;
+      checkbox.parentNode.style.color = '';
+      checkbox.parentNode.style.fontWeight = '';
+    });
+    saveProgress();
+  };
+
+  // --- Side Notes Panel Logic ---
+  const sideNotesPanel = document.getElementById('sideNotesPanel');
+  const sideRoomNotes = document.getElementById('sideRoomNotes');
+  const sideNotesRoomName = document.getElementById('sideNotesRoomName');
+
+  // Helper to get current visible room id
+  function getCurrentRoomId() {
+    const visibleRoom = document.querySelector('.room.show');
+    return visibleRoom ? visibleRoom.id : null;
+  }
+
+  // Load notes for current room
+  function loadSideNotes() {
+    const notes = JSON.parse(localStorage.getItem('anomalyNotes') || '{}');
+    const roomId = getCurrentRoomId();
+    if (roomId) {
+      sideRoomNotes.value = notes[roomId] || '';
+      const roomTitle = document.querySelector('.room.show h2');
+      sideNotesRoomName.textContent = roomTitle ? roomTitle.textContent + ' Notes' : 'Room Notes';
+      sideRoomNotes.disabled = false;
+    } else {
+      sideRoomNotes.value = '';
+      sideNotesRoomName.textContent = 'Room Notes';
+      sideRoomNotes.disabled = true;
+    }
+  }
+
+  // Save notes for current room
+  function saveSideNotes() {
+    const notes = JSON.parse(localStorage.getItem('anomalyNotes') || '{}');
+    const roomId = getCurrentRoomId();
+    if (roomId) {
+      notes[roomId] = sideRoomNotes.value;
+      localStorage.setItem('anomalyNotes', JSON.stringify(notes));
+    }
+  }
+
+  // Update notes panel when room changes
+  function updateSideNotesOnRoomChange() {
+    loadSideNotes();
+    sideRoomNotes.removeEventListener('input', saveSideNotes);
+    sideRoomNotes.addEventListener('input', saveSideNotes);
+  }
+
+  // Listen for room changes (room select, map select, search)
+  const observeRoomChange = new MutationObserver(updateSideNotesOnRoomChange);
+  document.querySelectorAll('.room').forEach(room => {
+    observeRoomChange.observe(room, { attributes: true, attributeFilter: ['class', 'style'] });
+  });
+  // Also update on map change
+  if (mapSelect) mapSelect.addEventListener('change', () => setTimeout(updateSideNotesOnRoomChange, 600));
+  // Also update on room select
+  roomSelects.forEach(select => select.addEventListener('change', () => setTimeout(updateSideNotesOnRoomChange, 100)));
+  // Also update after search
+  document.querySelectorAll('.search-input').forEach(input => input.addEventListener('input', () => setTimeout(updateSideNotesOnRoomChange, 100)));
+
+  // Initial load
+  updateSideNotesOnRoomChange();
+
+  // Load notes on page load
+  // loadNotes();
+
+  // Load progress on page load
+  loadProgress();
 });
 
 function resetRoom(roomId) {
