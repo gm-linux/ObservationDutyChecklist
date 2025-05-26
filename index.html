@@ -1259,24 +1259,49 @@
         input.addEventListener('input', () => {
           let mapId = input.id.replace('Search', '');
           if (input.id === 'gasStationSearch') {
-            mapId = 'gasStation'; // Explicitly handle gas station case
+            mapId = 'gasStation';
           } else if (input.id === 'museumSearch') {
-            mapId = 'museum'; // Explicitly handle museum case
+            mapId = 'museum';
           }
           const searchTerm = input.value.toLowerCase();
-          const anomalies = document.querySelectorAll(`#${mapId} .room ul li`);
-
-          anomalies.forEach(anomaly => {
-            const text = anomaly.textContent.toLowerCase();
-            if (text.includes(searchTerm)) {
-              anomaly.style.display = '';
-            } else {
-              anomaly.style.display = 'none';
+          // Show all rooms in the map when searching
+          const rooms = document.querySelectorAll(`#${mapId} .room`);
+          if (searchTerm.length > 0) {
+            rooms.forEach(room => {
+              room.style.display = 'block';
+              room.classList.add('show');
+              const anomalies = room.querySelectorAll('ul li');
+              anomalies.forEach(anomaly => {
+                const text = anomaly.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                  anomaly.style.display = '';
+                } else {
+                  anomaly.style.display = 'none';
+                }
+              });
+            });
+          } else {
+            // If search is cleared, hide all rooms except the selected one
+            rooms.forEach(room => {
+              room.classList.remove('show');
+              room.style.display = 'none';
+              const anomalies = room.querySelectorAll('ul li');
+              anomalies.forEach(anomaly => {
+                anomaly.style.display = '';
+              });
+            });
+            // Show the selected room if any
+            const roomSelect = document.querySelector(`#${mapId}RoomSelect`);
+            if (roomSelect && roomSelect.value) {
+              const selectedRoom = document.getElementById(roomSelect.value);
+              if (selectedRoom) {
+                selectedRoom.style.display = 'block';
+                setTimeout(() => selectedRoom.classList.add('show'), 10);
+              }
             }
-          });
+          }
         });
       });
-
      
       // Back to top button functionality
       window.addEventListener('scroll', () => {
