@@ -123,13 +123,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const rooms = document.querySelectorAll(`#${mapId} .room`);
       if (searchTerm.length > 0) {
         rooms.forEach(room => {
-          room.style.display = 'block';
-          room.classList.add('show');
+          let hasMatch = false;
           const anomalies = room.querySelectorAll('ul li');
           anomalies.forEach(anomaly => {
             const text = anomaly.textContent.toLowerCase();
-            anomaly.style.display = text.includes(searchTerm) ? '' : 'none';
+            if (text.includes(searchTerm)) {
+              anomaly.style.display = '';
+              hasMatch = true;
+            } else {
+              anomaly.style.display = 'none';
+            }
           });
+          if (hasMatch) {
+            room.style.display = 'block';
+            room.classList.add('show');
+          } else {
+            room.style.display = 'none';
+            room.classList.remove('show');
+          }
         });
       } else {
         rooms.forEach(room => {
