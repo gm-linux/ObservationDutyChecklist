@@ -435,6 +435,49 @@ footer {
   box-shadow: 0 0 0 2px #00d4ff44;
   outline: none;
 }
+.achievements {
+  background: #11213a;
+  color: #fff;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  padding: 1.2rem 1rem 1.5rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.achievements-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5em;
+}
+.achievements-table td {
+  border: 1px solid #223355;
+  padding: 0.7em 1em;
+  vertical-align: middle;
+  font-size: 1.05em;
+}
+.achievement-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background: #222;
+  object-fit: contain;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  margin-right: 0.5em;
+}
+.achievements h3 {
+  color: #ffdd57;
+  font-size: 1.15em;
+  margin-bottom: 0.7em;
+}
+@media (max-width: 700px) {
+  .achievements-table td {
+    font-size: 0.95em;
+    padding: 0.5em 0.4em;
+  }
+  .achievement-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
 @media (max-width: 900px) {
   #sideNotesPanel {
     position: static;
