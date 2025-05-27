@@ -276,6 +276,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load progress on page load
   loadProgress();
+  // --- Save/load achievement progress ---
+  function saveAchievementProgress() {
+    const achievements = {};
+    document.querySelectorAll('.achievement-checkbox').forEach(cb => {
+      achievements[cb.dataset.achievement] = cb.checked;
+      const tr = cb.closest('tr');
+      if (tr) {
+        if (cb.checked) {
+          tr.classList.add('achievement-completed');
+        } else {
+          tr.classList.remove('achievement-completed');
+        }
+      }
+    });
+    localStorage.setItem('achievementProgress', JSON.stringify(achievements));
+  }
+  function loadAchievementProgress() {
+    const achievements = JSON.parse(localStorage.getItem('achievementProgress') || '{}');
+    document.querySelectorAll('.achievement-checkbox').forEach(cb => {
+      cb.checked = !!achievements[cb.dataset.achievement];
+      const tr = cb.closest('tr');
+      if (tr) {
+        if (cb.checked) {
+          tr.classList.add('achievement-completed');
+        } else {
+          tr.classList.remove('achievement-completed');
+        }
+      }
+    });
+  }
+  document.querySelectorAll('.achievement-checkbox').forEach(cb => {
+    cb.addEventListener('change', saveAchievementProgress);
+  });
+  loadAchievementProgress();
 });
 
 function resetRoom(roomId) {
