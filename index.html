@@ -33,7 +33,7 @@
         <option value="logCabinMap">LOG CABIN</option>
         <option value="gasStation">GAS STATION</option>
         <option value="museum">MUSEUM</option>
-        <option value="factory">!!IN DEV!! FACTORY</option>
+        <option value="factory">FACTORY</option>
       </select>
     </div>
     <section class="map" id="spaMap" role="region" aria-labelledby="spaMapLabel">
@@ -861,9 +861,176 @@
       </div>
     </section>
     <section class="map" id="factory" role="region" aria-labelledby="factoryLabel">
+      <div class="achievements">
+        <h3>Achievements related to this section:</h3>
+        <table class="achievements-table">
+          <tr><td><input type="checkbox" class="achievement-checkbox" data-achievement="factory1"> I Don't Want to Be a Pie</td><td>Complete "Factory"</td></tr>
+          <tr><td><input type="checkbox" class="achievement-checkbox" data-achievement="factory2"> Meat's Meat, and I've Gotta Eat</td><td>Complete "Factory" on Hard difficulty</td></tr>
+          <tr><td><input type="checkbox" class="achievement-checkbox" data-achievement="factory3"> The Sun Will Come Out</td><td>Meet the Optimist</td></tr>
+          <tr><td><input type="checkbox" class="achievement-checkbox" data-achievement="factory4"> Physically Unstable</td><td>Meet the Wobbler</td></tr>
+          <tr><td><input type="checkbox" class="achievement-checkbox" data-achievement="factory5"> How Does He Go to the Bathroom?</td><td>Meet the Flasher</td></tr>
+          <tr><td><input type="checkbox" class="achievement-checkbox" data-achievement="factory6"> He Was a Horse... Man</td><td>Meet the Charger</td></tr>
+        </table>
+      </div>
       <div class="top-controls">
-        <h2 id="factoryLabel">Factory</h2>
-        <p>This map is currently in development. Check back later for updates!</p>
+        <label for="factoryRoomSelect">Choose a Room:</label>
+        <select id="factoryRoomSelect" aria-label="Choose a Room">
+          <option value="">-- Select a Room --</option>
+          <option value="monitoringRoom">Monitoring Room</option>
+          <option value="qualityControl">Quality Control</option>
+          <option value="canningLine">Canning Line</option>
+          <option value="maintenance">Maintenance</option>
+          <option value="storeroom">Storeroom</option>
+          <option value="lockerRoom">Locker Room</option>
+          <option value="breakRoom">Break Room</option>
+        </select>
+        <button class="btn" id="clearAllFactory">Clear All</button>
+        <div class="search-container">
+          <input type="text" class="search-input" id="factorySearch" placeholder="Search anomalies..." aria-label="Search anomalies">
+        </div>
+      </div>
+      <div class="room" id="monitoringRoom">
+        <h2>Monitoring Room</h2>
+        <button class="reset-room-btn" onclick="resetRoom('monitoringRoom')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> RED ALERT - You can hear this anomaly from every camera / Audio cue</li>
+          <li><input type="checkbox"> Missing Object - Mouse wire disappears</li>
+          <li><input type="checkbox"> Missing Object - Phone on far left disappears</li>
+          <li><input type="checkbox"> Missing Object - Phone in the middle disappears</li>
+          <li><input type="checkbox"> Missing Object - Phone on far right disappears</li>
+          <li><input type="checkbox"> Missing Object - White electrical box disappears</li>
+          <li><input type="checkbox"> Object Replacement - Buttons replace blank panel</li>
+          <li><input type="checkbox"> Object Replacement - Entire right panels are fleshy and pulsing</li>
+          <li><input type="checkbox"> Image Anomaly - Eyes overlayed on monitor screens</li>
+          <li><input type="checkbox"> Object Movement - Coffee cup moves to the right</li>
+          <li><input type="checkbox"> Person Movement - Employees are facing the camera</li>
+          <li><input type="checkbox"> Intruder - Head between the monitors</li>
+        </ul>
+      </div>
+      <div class="room" id="qualityControl">
+        <h2>Quality Control</h2>
+        <button class="reset-room-btn" onclick="resetRoom('qualityControl')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Missing Object - Buttons on left disappear</li>
+          <li><input type="checkbox"> Missing Object - Buttons in middle disappear</li>
+          <li><input type="checkbox"> Missing Object - Buttons on right disappear</li>
+          <li><input type="checkbox"> Missing Object - Meat disappears from plate</li>
+          <li><input type="checkbox"> Dead Body - Arm sticking out of meat pile</li>
+          <li><input type="checkbox"> Image Anomaly - Face appears on monitor</li>
+          <li><input type="checkbox"> Object Replacement - Cans replace meat chunks</li>
+          <li><input type="checkbox"> Object Movement - Wires move to the right</li>
+          <li><input type="checkbox"> Object Movement - Wheel turns</li>
+          <li><input type="checkbox"> Object Movement - Monitor moves back and forth</li>
+          <li><input type="checkbox"> Intruder [Optimist] - Report ASAP / Failing to report will result in a Game Over</li>
+        </ul>
+      </div>
+      <div class="room" id="canningLine">
+        <h2>Canning Line</h2>
+        <button class="reset-room-btn" onclick="resetRoom('canningLine')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Missing Object - Vent disappears</li>
+          <li><input type="checkbox"> Missing Object - Pipes below conveyor belt disappear</li>
+          <li><input type="checkbox"> Missing Object - Chair disappears</li>
+          <li><input type="checkbox"> Extra Object - Wheel appears on pipe</li>
+          <li><input type="checkbox"> Forbidden Snack - Raw meat doesn't look as yummy as Uranium</li>
+          <li><input type="checkbox"> Image Anomaly - Image becomes desaturated</li>
+          <li><input type="checkbox"> Object Movement - Pipes move closer to the camera</li>
+          <li><input type="checkbox"> Object Replacement - Chunks of meat replace cans</li>
+          <li><input type="checkbox"> Object Manipulation - Conveyor belts move backwards</li>
+          <li><input type="checkbox"> Door Anomaly - Door is open</li>
+          <li><input type="checkbox"> Intruder - Oh, hello there</li>
+        </ul>
+      </div>
+      <div class="room" id="maintenance">
+        <h2>Maintenance</h2>
+        <button class="reset-room-btn" onclick="resetRoom('maintenance')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Lights - Lights become blinding</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Rift - Report ASAP / Camera zooms and distorts / Audio cue</li>
+          <li><input type="checkbox"> Missing Object - Monitor stand disappears</li>
+          <li><input type="checkbox"> Missing Object - Box disappears from bottom shelf</li>
+          <li><input type="checkbox"> Missing Object - Pipe along the top of the screen disappears</li>
+          <li><input type="checkbox"> Extra Object - Pipe appears on left side of the left wall</li>
+          <li><input type="checkbox"> Extra Object - Pipe appears on the right side of the left wall</li>
+          <li><input type="checkbox"> Object Movement - White box moves closer to the ground</li>
+          <li><input type="checkbox"> Image Anomaly - Horseman appears on exit sign</li>
+          <li><input type="checkbox"> Blood - Puddle of blood</li>
+          <li><input type="checkbox"> HORSEMAN [Charger] - Report ASAP / Failing to report will result in a Game Over</li>
+        </ul>
+      </div>
+      <div class="room" id="storeroom">
+        <h2>Storeroom</h2>
+        <button class="reset-room-btn" onclick="resetRoom('storeroom')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Toxic Gas - Room is filled with green gas</li>
+          <li><input type="checkbox"> Intruder [Wobbler] - Intruder will teleport if you try to click-and-hold</li>
+          <li><input type="checkbox"> Missing Object - Box disappears from middle shelf</li>
+          <li><input type="checkbox"> Missing Object - Box disappears from left shelf</li>
+          <li><input type="checkbox"> Missing Object - Box disappears from far left shelf</li>
+          <li><input type="checkbox"> Extra Object - Box appears on pallets</li>
+          <li><input type="checkbox"> Extra Object - Box appears on crate</li>
+          <li><input type="checkbox"> Extra Object - Forklift appears behind crates</li>
+          <li><input type="checkbox"> Dead Body - Body parts appear by far right shelf</li>
+          <li><input type="checkbox"> Object Movement - Microwave and coffee maker swap places</li>
+          <li><input type="checkbox"> Object Movement - Folder and cans swap places</li>
+          <li><input type="checkbox"> Image Anomaly - Timothy appears on monitor</li>
+          <li><input type="checkbox"> Image Anomaly - Scribbles appear on notepad</li>
+          <li><input type="checkbox"> Object Replacement - Wall becomes smooth</li>
+        </ul>
+      </div>
+      <div class="room" id="lockerRoom">
+        <h2>Locker Room</h2>
+        <button class="reset-room-btn" onclick="resetRoom('lockerRoom')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Abyss - Abyss takes over the camera / Audio cue</li>
+          <li><input type="checkbox"> Gloom - Room becomes dark and gloomy</li>
+          <li><input type="checkbox"> !!HUGE SPIDER!! - Spider appears above towels</li>
+          <li><input type="checkbox"> !!HUGE SPIDER!! - Spider appears under bench</li>
+          <li><input type="checkbox"> !!HUGE SPIDER!! - Spider appears on hard hat</li>
+          <li><input type="checkbox"> Object Movement - Hard hat moves to the left</li>
+          <li><input type="checkbox"> Object Movement - Hard hat moves over a hook</li>
+          <li><input type="checkbox"> Object Movement - Handle is rotated</li>
+          <li><input type="checkbox"> Door Anomaly - Locker is open</li>
+          <li><input type="checkbox"> Image Anomaly - Pictures on poster change</li>
+          <li><input type="checkbox"> Blood - Puddle of blood</li>
+          <li><input type="checkbox"> Intruder [Flasher] - Interesting anatomy</li>
+        </ul>
+      </div>
+      <div class="room" id="breakRoom">
+        <h2>Break Room</h2>
+        <button class="reset-room-btn" onclick="resetRoom('breakRoom')">Reset Room</button>
+        <ul>
+          <li><input type="checkbox"> Report Window Anomalies</li>
+          <li><input type="checkbox"> Camera Malfunction - Camera stops appearing in cycle</li>
+          <li><input type="checkbox"> Missing Object - Light switch disappears</li>
+          <li><input type="checkbox"> Missing Object - Outlet disappears</li>
+          <li><input type="checkbox"> Missing Object - Chair disappears</li>
+          <li><input type="checkbox"> Missing Object - Chair disappears part 2</li>
+          <li><input type="checkbox"> Missing Object - Chair disappears part 3</li>
+          <li><input type="checkbox"> Missing Object - Chair disappears part 4</li>
+          <li><input type="checkbox"> Object Movement - Newspaper and document swap places</li>
+          <li><input type="checkbox"> Object Replacement - Dishwasher replaces cabinet</li>
+          <li><input type="checkbox"> Image Anomaly - Very flattering poster</li>
+          <li><input type="checkbox"> Image Anomaly - Guy is smiling</li>
+          <li><input type="checkbox"> Extra Object - Candy bar appears on right table</li>
+          <li><input type="checkbox"> Head of Operations - Head floating in green gatorade</li>
+          <li><input type="checkbox"> Intruder - Vending machine wont give this gentleman his soda</li>
+        </ul>
       </div>
     </section>
   </main>
