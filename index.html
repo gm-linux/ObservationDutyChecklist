@@ -14,6 +14,47 @@
 <body>
   <div class="loading-spinner" id="loadingSpinner"></div>
   <button class="dark-mode-toggle" id="darkModeToggle">Toggle Dark Mode</button>
+  <button class="feedback-btn" id="feedbackBtn">Feedback</button>
+  <div id="feedbackModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeFeedbackModal">&times;</span>
+      <h2>Send Feedback</h2>
+      <form id="feedbackForm">
+        <label for="feedbackName">Name:</label>
+        <input type="text" id="feedbackName" name="feedbackName" maxlength="32" required>
+        <label for="feedbackType">Type of Feedback:</label>
+        <select id="feedbackType" name="feedbackType" required>
+          <option value="">-- Select Type --</option>
+          <option value="Missing Anomaly">Missing Anomaly</option>
+          <option value="Bug Report">Bug Report</option>
+          <option value="Suggestion">Suggestion</option>
+          <option value="Compliment">Compliment</option>
+          <option value="Other">Other</option>
+        </select>
+        <div id="missingAnomalyFields" style="display:none;">
+          <label for="feedbackMap">Map:</label>
+          <select id="feedbackMap" name="feedbackMap">
+            <option value="">-- Select Map --</option>
+            <option value="SPA">SPA</option>
+            <option value="APARTMENT BUILDING">APARTMENT BUILDING</option>
+            <option value="LOG CABIN">LOG CABIN</option>
+            <option value="GAS STATION">GAS STATION</option>
+            <option value="MUSEUM">MUSEUM</option>
+            <option value="FACTORY">FACTORY</option>
+          </select>
+          <label for="feedbackRoom">Room:</label>
+          <select id="feedbackRoom" name="feedbackRoom">
+            <option value="">-- Select Room --</option>
+          </select>
+        </div>
+        <label for="feedbackText">Feedback:</label>
+        <textarea id="feedbackText" name="feedbackText" rows="5" maxlength="500" required></textarea>
+        <button type="submit" class="btn">Send</button>
+      </form>
+      <div id="feedbackSuccess" style="display:none;color:green;margin-top:1em;">Thank you for your feedback!</div>
+      <div id="feedbackError" style="display:none;color:red;margin-top:1em;">Failed to send feedback. Please try again later.</div>
+    </div>
+  </div>
   <header>
     <h1>Observation Duty 7 Anomalies Tracker</h1>
     <p>Select a map, then choose a room to track anomalies</p>

@@ -321,6 +321,14 @@ footer {
     font-size: 1rem;
     padding: 0.5em;
   }
+  .modal-content {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+  }
+  .feedback-btn {
+    left: 20px;
+    right: unset;
+    top: 70px;
+  }
 }
 .tooltip {
   position: relative;
@@ -505,4 +513,144 @@ footer {
     margin-right: 0;
     flex-direction: column;
   }
+}
+.feedback-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 1rem;
+  z-index: 1001;
+  transition: background-color 0.3s;
+}
+.feedback-btn:hover {
+  background: #333;
+}
+.dark-mode .feedback-btn {
+  background: #007bff;
+  color: #fff;
+}
+.dark-mode .feedback-btn:hover {
+  background: #0056b3;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 8% auto;
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+}
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #007bff;
+}
+#feedbackForm label {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+  font-weight: 500;
+}
+#feedbackForm input[type="text"],
+#feedbackForm textarea {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 0.5em;
+  box-sizing: border-box;
+}
+#feedbackForm button[type="submit"] {
+  margin-top: 1em;
+  width: 100%;
+}
+.dark-mode .modal-content {
+  background: linear-gradient(135deg, #23272f 80%, #1a1d22 100%);
+  color: #e0e0e0;
+  border: 1.5px solid #007bff;
+  box-shadow: 0 8px 32px rgba(0,123,255,0.10), 0 1.5px 8px #007bff33;
+}
+.dark-mode #feedbackForm label {
+  color: #aad4ff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.dark-mode #feedbackForm input[type="text"],
+.dark-mode #feedbackForm textarea,
+.dark-mode #feedbackForm select {
+  color: #e0e0e0;
+  background: #181b20;
+  border: 1.5px solid #444;
+  box-shadow: 0 1px 4px #007bff22;
+}
+.dark-mode #feedbackForm input[type="text"]:focus,
+.dark-mode #feedbackForm textarea:focus,
+.dark-mode #feedbackForm select:focus {
+  border-color: #00d4ff;
+  outline: none;
+}
+.dark-mode #feedbackForm select {
+  color: #e0e0e0;
+  background: #23272f;
+}
+.dark-mode #feedbackForm input[type="text"]::placeholder,
+.dark-mode #feedbackForm textarea::placeholder {
+  color: #888;
+}
+.dark-mode .modal-content h2 {
+  color: #ffdd57;
+  letter-spacing: 1px;
+  font-size: 1.3em;
+}
+#missingAnomalyFields {
+  margin-top: 0.5em;
+}
+#missingAnomalyFields label {
+  margin-top: 0.7em;
+  margin-bottom: 0.2em;
+  font-weight: 500;
+}
+#missingAnomalyFields select {
+  width: 100%;
+  padding: 0.4em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 0.5em;
+  font-size: 1rem;
+}
+.dark-mode #missingAnomalyFields label {
+  color: #aad4ff;
+}
+.dark-mode #missingAnomalyFields select {
+  background: #23272f;
+  color: #e0e0e0;
+  border: 1.5px solid #444;
 }

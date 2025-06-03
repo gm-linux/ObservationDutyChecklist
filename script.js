@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const clearAlllogCabin = document.getElementById('clearAlllogCabin');
   const clearAllGasStation = document.getElementById('clearAllGasStation');
   const clearAllMuseum = document.getElementById('clearAllMuseum');
+  const clearAllFactory = document.getElementById('clearAllFactory');
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   const darkModeToggle = document.getElementById('darkModeToggle');
   const body = document.body;
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (clearAlllogCabin) clearAlllogCabin.addEventListener('click', () => clearAllCheckboxes('logCabinMap'));
   if (clearAllGasStation) clearAllGasStation.addEventListener('click', () => clearAllCheckboxes('gasStation'));
   if (clearAllMuseum) clearAllMuseum.addEventListener('click', () => clearAllCheckboxes('museum'));
+  if (clearAllFactory) clearAllFactory.addEventListener('click', () => clearAllCheckboxes('factory'));
 
   // Checkbox click/label highlight logic
   checkboxes.forEach(checkbox => {
@@ -310,6 +312,93 @@ document.addEventListener('DOMContentLoaded', () => {
     cb.addEventListener('change', saveAchievementProgress);
   });
   loadAchievementProgress();
+
+  // Feedback modal logic
+  const feedbackBtn = document.getElementById('feedbackBtn');
+  const feedbackModal = document.getElementById('feedbackModal');
+  const closeFeedbackModal = document.getElementById('closeFeedbackModal');
+  const feedbackForm = document.getElementById('feedbackForm');
+  const feedbackSuccess = document.getElementById('feedbackSuccess');
+  const feedbackError = document.getElementById('feedbackError');
+  const feedbackType = document.getElementById('feedbackType');
+  const missingAnomalyFields = document.getElementById('missingAnomalyFields');
+  const feedbackMap = document.getElementById('feedbackMap');
+  const feedbackRoom = document.getElementById('feedbackRoom');
+
+  // Room options for each map
+  const mapRooms = {
+    'SPA': ['Lobby', 'Dressing Room', 'Main Pool', 'Cold Pool', 'Water Slide', 'Sauna'],
+    'APARTMENT BUILDING': ['Entrance', 'Stairway', 'Club Room', 'Basement', 'Storage', 'Garage'],
+    'LOG CABIN': ['Yard', 'Entryway', 'Living Room', 'Kitchen', 'Bedroom', 'Bathroom'],
+    'GAS STATION': ['Gas Pumps', 'Store', 'Cafeteria', 'Parking Lot', 'Backyard', 'Road'],
+    'MUSEUM': ['Lobby', 'Painting Gallery', 'Statue Gallery', 'Round Gallery', 'Cafeteria', 'Gift Shop'],
+    'FACTORY': ['Monitoring Room', 'Quality Control', 'Canning Line', 'Maintenance', 'Storeroom', 'Locker Room', 'Break Room']
+  };
+
+  feedbackType.addEventListener('change', function() {
+    if (this.value === 'Missing Anomaly') {
+      missingAnomalyFields.style.display = '';
+    } else {
+      missingAnomalyFields.style.display = 'none';
+      feedbackMap.value = '';
+      feedbackRoom.innerHTML = '<option value="">-- Select Room --</option>';
+    }
+  });
+  feedbackMap.addEventListener('change', function() {
+    const rooms = mapRooms[this.value] || [];
+    feedbackRoom.innerHTML = '<option value="">-- Select Room --</option>' + rooms.map(r => `<option value="${r}">${r}</option>`).join('');
+  });
+  feedbackForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    feedbackSuccess.style.display = 'none';
+    feedbackError.style.display = 'none';
+    const name = document.getElementById('feedbackName').value.trim();
+    const type = feedbackType.value;
+    const text = document.getElementById('feedbackText').value.trim();
+    let extra = '';
+    if (type === 'Missing Anomaly') {
+      const map = feedbackMap.value;
+      const room = feedbackRoom.value;
+      if (!map || !room) {
+        feedbackError.style.display = 'block';
+        feedbackError.textContent = 'Please select a map and room.';
+        feedbackForm.style.display = 'block';
+        return;
+      }
+      extra = `\n**Map:** ${map}\n**Room:** ${room}`;
+    }
+    if (!name || !text || !type) return;
+    feedbackForm.style.display = 'none';
+    try {
+      await fetch('https://discord.com/api/webhooks/1379519332928852068/xxKrNGQRJlRznJjJ5hp9-DaXzcm6SHBsKf9V-6gpBxlv_lAcsJ8ogUjeoZEN7shUSroL', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: `**Feedback from:** ${name}\n**Type:** ${type}${extra}\n${text}` })
+      });
+      feedbackSuccess.style.display = 'block';
+      feedbackError.textContent = 'Failed to send feedback. Please try again later.';
+    } catch {
+      feedbackError.style.display = 'block';
+    }
+    setTimeout(() => {
+      feedbackModal.style.display = 'none';
+      feedbackForm.style.display = 'block';
+    }, 2000);
+  });
+  feedbackBtn.addEventListener('click', () => {
+    feedbackModal.style.display = 'block';
+    feedbackSuccess.style.display = 'none';
+    feedbackError.style.display = 'none';
+    feedbackForm.style.display = 'block';
+    feedbackForm.reset();
+    missingAnomalyFields.style.display = 'none';
+  });
+  closeFeedbackModal.addEventListener('click', () => {
+    feedbackModal.style.display = 'none';
+  });
+  window.addEventListener('click', (e) => {
+    if (e.target === feedbackModal) feedbackModal.style.display = 'none';
+  });
 });
 
 function resetRoom(roomId) {
